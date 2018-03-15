@@ -1,0 +1,451 @@
+/*
+Custom Bootstrap Musicalitza Theme
+
+    Created on : 11-mar-2018, 23:25:01
+    Author     : Pau Rodellino
+*/
+
+body {
+    overflow-x: hidden;
+    background-color: #f2f2f2;
+    font-family: Roboto Condensed;
+}
+
+section {
+    padding: 80px 0;
+}
+
+h1 {
+    font-size: 3.5em;
+    font-family: Anton;
+}
+
+h2 {
+    text-align: center;
+    font-family: Anton;
+    font-size: 1.8em;
+    color: magenta;
+    text-shadow: 1px 1px #000000;
+    padding-bottom: 15px;
+}
+
+/*Generals*/
+.top40 {
+    padding-top: 40px;
+}
+
+.bottom40 {
+    padding-bottom: 40px;
+}
+
+.top80 {
+    padding-top: 80px;
+}
+
+.bottom80 {
+    padding-bottom: 80px;
+}
+
+/*NAV*/
+.navbar {
+    margin-bottom: 0;
+    color: #f2f2f2;
+    background-color: #333;
+    border-radius: 0;
+}
+
+.navbar a, .navbar i {
+    color: #f2f2f2 !important;
+}
+
+.navbar-brand {
+    font-family: 'Lobster', cursive;
+    font-size: 2em;
+}
+
+.navbar .btn-search {
+    background: #424242;
+    border-radius: 0;
+    color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #1c1c1c;
+}
+
+.navbar .form-inline {
+    padding: 8px 30px 0 30px;
+}
+
+/* HOME BANNER */
+.jumbotron {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1) ), url('../img/records3.jpg');
+    /*background-image: url("../img/records3.jpg");*/
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;    
+    border-radius: 0;
+}
+
+.jumbotron h1 {
+    color: cyan;
+    text-shadow: 2px 2px #000;
+    line-height: 1.3em;
+}
+
+/* HOME RANKS */
+
+#ranks .panel {
+    background-color: transparent;
+    font-size: 1.2em;
+}
+
+#ranks .panel-heading {
+    text-align: center;
+    font-family: Anton;
+    font-size: 1.8em;
+    color: magenta;
+    text-shadow: 1px 1px #000000;
+    padding-bottom: 0;
+}
+
+#ranks .panel-body {
+    padding: 0;
+}
+
+#ranks .panel p {
+    line-height: 18px;
+}
+
+#ranks p:first-child { 
+    font-weight: bolder;
+    margin-bottom: 15px;
+}
+
+#ranks p:nth-child(4) { 
+    margin-top: 20px;
+}
+
+#ranks .panel a {
+    font-size: 1.1em;
+}
+
+#ranks .disc {
+    border: 2px dashed #ffb3ff;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+@media (max-width: 992px) { 
+    #ranks .dades {
+        margin-top: 15px;
+        text-align: center;
+    }
+}
+
+#ranks .panel-footer {
+    width: fit-content;
+    font-family: Anton;
+    font-size: 1.2em;
+    color: #f2f2f2;
+    background-color: magenta;
+    text-shadow: 2px 2px #000;
+    position: relative;
+    bottom: 20px;
+    left: 10px;
+    float: right;
+    transform: rotate(358deg);
+}
+
+#ranks .panel-footer:nth-child(2) {
+    bottom: 40px;
+}
+
+#ranks .panel-footer a {
+    font-family: Anton;
+    font-weight: lighter;
+    color: #f2f2f2;
+    text-shadow: 2px 2px #000;
+    text-decoration: none;
+}
+
+#ranks .data {
+    background-color: magenta;
+    padding: 15px;
+    padding: 20px 0 1px;
+    margin: 0 auto;
+}
+
+#ranks .data p {
+    text-align: center;
+    color: white;
+    font-weight: bold;    
+    line-height: 9px;
+    font-size: 1em;
+}
+
+#ranks .data p:first-child {
+    font-size: 2em;
+    font-weight: lighter;
+    font-family: Anton;
+}
+
+#ranks .data p:nth-child(3) {
+    font-weight: lighter;
+}
+
+/* REGISTRA'T */
+#registrat {
+    background-color: #666;
+    text-align: center;
+    padding: 40px 0;
+}
+
+#registrat p {
+    font-size: 1.3em;
+    text-shadow: 1px 1px  black;
+    color: cyan;
+}
+
+#registrat .slogan {
+    font-family: Lobster;
+    font-size: 2.5em;
+}
+
+#registrat button {
+    background-color: cyan;
+    color: #333;
+    font-weight: bolder;
+    font-size: 1.2em;
+    box-shadow: 1px 1px black;
+}
+
+/* FOOTER - https://tutorialzine.com/2015/01/freebie-5-responsive-footer-templates */
+.footer-distributed{
+    background-color: #292c2f;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    font: bold 16px sans-serif;
+
+    padding: 55px 50px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left{
+    width: 40%;
+}
+
+/* The company logo */
+
+.footer-distributed h3{
+    color:  #ffffff;
+    font: normal 36px 'Lobster';
+    margin: 0;
+    color: yellow;
+    text-shadow: 1px 1px solid black;
+}
+
+.footer-distributed h3 span{
+    color:  #5383d3;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+    color:  #ffffff;
+    margin: 20px 0 12px;
+    padding: 0;
+}
+
+.footer-distributed .footer-links a{
+    display:inline-block;
+    line-height: 1.8;
+    text-decoration: none;
+    color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+    color:  #8f9296;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+    width: 35%;
+}
+
+.footer-distributed .footer-center i{
+    background-color:  #33383b;
+    color: #ffffff;
+    font-size: 25px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 42px;
+    margin: 10px 15px;
+    vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+    font-size: 17px;
+    line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+    display: inline-block;
+    color: #ffffff;
+    vertical-align: middle;
+    margin:0;
+}
+
+.footer-distributed .footer-center p span{
+    display:block;
+    font-weight: normal;
+    font-size:14px;
+    line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+    color:  #5383d3;
+    text-decoration: none;;
+}
+
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+    width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+    line-height: 20px;
+    color:  #92999f;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+    display: block;
+    font-family: Anton;
+    color:  yellow;
+    font-weight: lighter;
+    font-size: 1.6em;
+    text-shadow: 1px 1px black;
+    margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+    margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color:  #33383b;
+    border-radius: 2px;
+
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 880px) {
+
+    .footer-distributed{
+        font: bold 14px sans-serif;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right{
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .footer-distributed .footer-center i{
+        margin-left: 0;
+    } 
+
+}
+
+.footer-distributed .footer-links a {
+    font-size: 0.8em;
+    color: #92999f;
+}
+
+.footer-distributed a:hover {
+    color: yellow;
+}
+
+.legal {
+    color: #f2f2f2;
+}
+
+.legal a {
+    font-size: 0.8em;
+    color: #92999f;
+    font-weight: lighter;
+}
+
+.footer-distributed .footer-company-name {
+    margin-top: 15px;
+}
+
+.footer-center img {
+    border-radius: 5px;
+    opacity: 0.9;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+}
+
+/*MY ACCOUNT*/
+#my-account h1 {
+    color: magenta;
+    text-shadow: 1px 1px black;
+    padding-bottom: 20px;
+}
+
+#my-account .login {
+    border: 1px dashed yellow;
+    padding: 40px 0;
+    border-radius: 20px;
+}
+
+#my-account .crear {
+    border-right: 2px dashed magenta;
+}
+
+#my-account .btn-primary {
+    color: #fff;
+    background-color: cyan;
+    border-color: transparent;
+    border-radius: 0 !important;
+    font-family: Anton;
+    text-shadow: 1px 1px black;
+    width: fit-content !important;
+    margin: 0 auto;
+}
