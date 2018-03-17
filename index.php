@@ -243,7 +243,9 @@ require 'header.php';
 </section>
 <!-- end Ranks -->
 
-<!-- REGISTRA'T -->
+<? if (!$userLoggedIn) { ?>
+
+<!-- REGISTRA'T nomès surt si no has iniciat sessió -->
 <section id="registrat">
     <div class="row slogan">
         <p>Troba amics musicals!</p>
@@ -251,6 +253,8 @@ require 'header.php';
     <button type="button" class="btn">Registra't</button>
 </section>
 <!-- End Registra't -->
+
+<? } ?> 
 
 <?php
 require 'footer.php';

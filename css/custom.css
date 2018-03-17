@@ -9,6 +9,7 @@ body {
     overflow-x: hidden;
     background-color: #f2f2f2;
     font-family: Roboto Condensed;
+    -webkit-font-smoothing: antialiased;
 }
 
 section {
@@ -28,6 +29,11 @@ h2 {
     text-shadow: 1px 1px #000000;
     padding-bottom: 15px;
 }
+
+a, .btn {
+  transition: all 0.125s ease-in-out 0s;
+}
+
 
 /*Generals*/
 .top40 {
@@ -451,4 +457,66 @@ h2 {
 
 .registerBenefit {
     margin-bottom: 10px;
+}
+
+.userPanelSectionBox {
+    border-radius: 2px;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #FFFFFF;
+    color: #252422;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+ul.userPanelSections {
+    margin: 0; 
+    padding: 0;
+    list-style-type: none;
+}
+
+ul.userPanelSections li a {
+    color: #666;
+    text-decoration: none;
+    padding: 10px;
+    display:block;
+    border-bottom: 1px solid #ebebeb;
+    border-left: 2px solid #fff;
+}
+ 
+ul.userPanelSections li a:hover, ul.userPanelSections li a:focus {
+    color: #000;
+    background-color: #f2f2f2;
+    border-left: 2px solid #666;
+}
+
+ul.userPanelSections li .glyphicon {
+    margin-right: 10px;
+}
+
+ul.userPanelSections li .label {
+    font-weight: normal;
+    margin-left: 3px;
+}
+
+.profilePicture {
+
+}
+
+.profileName, .favoriteItemsNumber {
+    color: #000;
+    font-size: 16px;
+    margin: 10px 0px;
+}
+
+.profileEmail, .favoriteItemsName {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.profileBio {
+    font-style: italic;
+    font-size: 20px;
+    margin: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
 }

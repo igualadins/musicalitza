@@ -1,3 +1,16 @@
+<?php
+// iniciem la sessió de php
+session_start();
+// incloem la connexió amb la bbdd
+include('connect.php');
+// incloem la classe usuari
+include('class/user.php');
+$user = new User($dbConnection);
+// fem la verificació de si l'usuari està identificat o no (boolean)
+$userLoggedIn = $user->checkUserSession();
+// ara podem condicionar certes coses preguntant si $userLoggedIn es 0 o 1
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,7 +54,8 @@
                             <li><a href="#">Concerts</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> El teu compte</a></li>
+                            <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <? if ($userLoggedIn) echo 'Hola '.$_SESSION['nickname']; else echo 'El meu compte' ?></a></li>
+                            <? if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessió</a></li>'; ?>
                         </ul>
                     </div>
                 </div>

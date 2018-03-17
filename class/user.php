@@ -69,7 +69,7 @@ class User
 	/**
 	* Cerca les dades d'un usuari  a partir del seu email
 	*
-	* @param int $email Email de l'usuari 
+	* @param int $email email de l'usuari 
 	* @return array $data Array amb les dades trobades i una dada "userfound" per indicar si l'ha trobat o no
 	*/
 
@@ -78,6 +78,30 @@ class User
 		$data = array();
 		$query = $this->dbConnection->prepare("SELECT * FROM users WHERE email = ?");
 		$query->execute(array($email));
+		if ($query->rowCount() == 0) {
+			$data['userfound'] = false;
+			return $data;
+		} else {
+			$data = $query->fetch(PDO::FETCH_ASSOC);
+			$data['userfound'] = true;
+			return $data;
+		}
+	}
+
+
+
+	/**
+	* Cerca les dades d'un usuari  a partir del seu id
+	*
+	* @param int $id id de l'usuari 
+	* @return array $data Array amb les dades trobades i una dada "userfound" per indicar si l'ha trobat o no
+	*/
+
+	public function getUserDataById($id)
+	{
+		$data = array();
+		$query = $this->dbConnection->prepare("SELECT * FROM users WHERE id = ?");
+		$query->execute(array($id));
 		if ($query->rowCount() == 0) {
 			$data['userfound'] = false;
 			return $data;
@@ -122,7 +146,7 @@ class User
 
 	private function checkUserEmail($email)
 	{
-			$query = $this->dbConnection->prepare("SELECT * FROM users WHERE email = ?");
+			$query = $this->dbConnection->prepare("SELECT id FROM users WHERE email = ?");
 			$query->execute(array($email));
 			if ($query->rowCount() == 0) {
 					return false;
@@ -196,58 +220,27 @@ class User
 	*
 	* Actualitza les dades basiques d'un usuari
 	*
-	* @param string $email
 	* @param string $nickname
+	* @param string $bio
+	* @param Int $userId
 	* @return array $return
 	*/
 
-	public function update($email, $nickname, $userId)
+	public function update($nickname, $bio, $userId)
 	{
 		$return = array();
 		//Si les dades rebudes no son correctes segons el tipus de parametres retornem error
-		if (strlen($email) == 0 or strlen($email) < 3 or strlen($email) > 150) {
-				$return['error'] = 1;
-				$return['message'] = "Email no vàlid";
-				return $return;
-		} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				$return['error'] = 1;
-				$return['message'] = "Email no vàlid";
-				return $return;
-		} elseif (strlen($nickname) == 0 or strlen($nickname) < 3 or strlen($nickname) > 150) {
+		if (strlen($nickname) == 0 or strlen($nickname) < 3 or strlen($nickname) > 150) {
 				$return['error'] = 1;
 				$return['message'] = "Nickname no vàlid";
 				return $return;
 		} else {
-			//Si l'email rebut es el de l'usuari nomès actualitzem el nom
-			if($this->getUserEmailByUserId($userId) == $email) {
-					$username = htmlentities($nickname);
-					$query = $this->dbConnection->prepare("UPDATE users SET nickname = ? WHERE id = ?");
-					$query->execute(array($nickname, $userId));
-					$return['error'] = 0;
-					$return['id'] = $userId;
-					$_SESSION['nickname'] = $nickname;
-					$return['email'] = $email;
-					return $return;
-			} else { //Si l'email rebut NO es el de l'usuari actualitzem email i nom
-				//primer verifiquem que no estigui ja registrat el mail
-				if (!$this->checkUserEmail($email)) {
-					//Netejem les dades rebudes per si de cas..
-					$username = htmlentities($nickname);
-					$email = htmlentities($email);
-					//Guardem les dades, i actualitzem la sessió
-					$query = $this->dbConnection->prepare("UPDATE users SET email = ?, nickname = ? WHERE id = ?");
-					$query->execute(array($email, $nickname, $userId));
-					$return['error'] = 0;
-					$return['id'] = $userId;
-					$_SESSION['nickname'] = $nickname;
-					$return['email'] = $email;
-					return $return;
-				} else { //Si l'email ja existeix retornem error
-					$return['error'] = 1;
-					$return['message'] = "Email ja registrat";
-					return $return;
-				}
-			}
+				//Guardem les dades, i actualitzem la sessió
+				$query = $this->dbConnection->prepare("UPDATE users SET nickname = ?, bio = ? WHERE id = ?");
+				$query->execute(array($nickname, $bio, $userId));
+				$return['error'] = 0;
+				$_SESSION['nickname'] = $nickname;
+				return $return;
 		}
 	}
 

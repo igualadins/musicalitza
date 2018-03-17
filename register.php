@@ -3,6 +3,26 @@
 require 'header.php';
 ?>
 
+<? if ($userLoggedIn) { // Si l'usuari ha fet login mostrem un boto cap el panell d'usuari ?>
+
+    <div id="my-account" class="container top40 bottom80">
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h1>Benvingut!!</h1>
+            </div>
+        </div>
+
+        <div class="row top40 bottom40 login">
+            <div class="col-lg-3 col-lg-offset-2 col-sm-4 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+                <a class="btn btn-lg btn-primary btn-block" href="my-account.php">Anar al meu compte</a>
+            </div>
+        </div>
+
+    </div>
+
+<? } else { // Si l'usuari no està identificat, mostrem el form de registre ?>
+
     <div id="my-account" class="container top40 bottom80">
 
         <div class="row">
@@ -12,6 +32,16 @@ require 'header.php';
         </div>
 
         <div class="row top40 bottom40 login">
+
+
+          <?php if(isset($_GET['error'])) { // Si rebem un error per parametre a la url mostrem un missatge a l'usuari per indicar que algo ha anat malament ?>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <b>Error en registre</b><br />
+              Hi ha hagut un error en el procès de registre d'usuari
+              <?php if(isset($_GET['message'])) { echo "<br><b>Motiu: </b>".$_GET['message']; }?>
+            </div>
+          <? } ?>
 
           <div class="col-sm-6">
             <h2 class="form-signin-heading">Registra't ara i podràs..</h2>
@@ -28,7 +58,7 @@ require 'header.php';
           <div class="col-sm-6">
             <h2 class="form-signin-heading">Crear un compte</h2>
             <div class="well">
-              <form autocomplete="off">
+              <form autocomplete="off" action="action-register.php" method="POST">
                 <div class="form-group">
                   <input type="text" class="form-control" placeholder="Nom d'usuari" name="inputNickname" required autofocus tabindex="1">
                 </div>
@@ -40,10 +70,10 @@ require 'header.php';
                 </div>
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="conditions" value="conditions" required> He llegit i accepto les condicions d'ús i pol&iacute;tica de privacitat de la web
+                    <input type="checkbox" name="conditions" value="conditions" required  tabindex="4"> He llegit i accepto les condicions d'ús i pol&iacute;tica de privacitat de la web
                   </label>
                 </div>
-                <input type="submit" name="enviar" value="Crear un compte" class="btn btn-lg btn-primary btn-block" />
+                <input type="submit" name="enviar" value="Crear un compte" class="btn btn-lg btn-primary btn-block"  tabindex="5" />
               </form>
               <div class="clearfix"></div>
             </div>
@@ -52,6 +82,8 @@ require 'header.php';
         </div>
 
     </div>
+
+<? } ?>
 
 <?php
 
