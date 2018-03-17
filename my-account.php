@@ -15,21 +15,16 @@ require 'header.php';
 
             <div class="col-lg-3 col-lg-offset-2 col-sm-4 col-sm-offset-2 col-xs-8 col-xs-offset-2">
                 <h2 class="form-signin-heading">Crear un compte</h2>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Crear un compte</button>
+                <a class="btn btn-lg btn-primary btn-block" href="register.php" >Crear un compte</a>
             </div>
 
             <div class="col-lg-3 col-lg-offset-2 col-sm-4 col-sm-offset-2 col-xs-8 col-xs-offset-2">
                 <form class="form-signin">
                     <h2 class="form-signin-heading">Ja estàs registrat?</h2>
                     <label for="inputEmail" class="sr-only">Correu electrònic</label>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="" tabindex="1">
                     <label for="inputPassword" class="sr-only">Contrasenya</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Recorda-ho
-                        </label>
-                    </div>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="" tabindex="2">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Accedir</button>
                 </form>
             </div>

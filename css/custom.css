@@ -79,7 +79,6 @@ h2 {
 /* HOME BANNER */
 .jumbotron {
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1) ), url('../img/records3.jpg');
-    /*background-image: url("../img/records3.jpg");*/
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;    
@@ -220,7 +219,6 @@ h2 {
     box-shadow: 1px 1px black;
 }
 
-/* FOOTER - https://tutorialzine.com/2015/01/freebie-5-responsive-footer-templates */
 .footer-distributed{
     background-color: #292c2f;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
@@ -370,8 +368,6 @@ h2 {
     margin-bottom: 5px;
 }
 
-/* If you don't want the footer to be responsive, remove these media queries */
-
 @media (max-width: 880px) {
 
     .footer-distributed{
@@ -419,7 +415,6 @@ h2 {
 .footer-center img {
     border-radius: 5px;
     opacity: 0.9;
-    filter: alpha(opacity=90); /* For IE8 and earlier */
 }
 
 /*MY ACCOUNT*/
@@ -448,4 +443,12 @@ h2 {
     text-shadow: 1px 1px black;
     width: fit-content !important;
     margin: 0 auto;
+}
+
+.form-signin input {
+    margin-bottom: 10px;
+}
+
+.registerBenefit {
+    margin-bottom: 10px;
 }

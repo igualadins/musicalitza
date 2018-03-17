@@ -23,7 +23,7 @@
                             <span class="icon-bar"></span>                        
                         </button>
 
-                        <a class="navbar-brand" href="home.php">Musicalitza</a>
+                        <a class="navbar-brand" href="index.php">Musicalitza</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="myNavbar">
