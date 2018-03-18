@@ -24,7 +24,13 @@ require 'header.php';
             <div class="col-sm-8 col-xs-12">
               <div class="userPanelSectionBox text-center">
                 <? $userData = $user->getUserDataById($_SESSION['id']); ?>
-                <div class="profilePicture"><img src="img/users/_user.jpg" class="img-circle" /></div>
+                <div class="profilePicture">
+                  <? if (strlen($userData['image'])) { ?>
+                    <img src="<? echo $userData['image']; ?>" class="img-circle" />
+                  <? } else { ?>
+                    <img src="img/users/_user.jpg" class="img-circle" />
+                  <? } ?>                  
+                </div>
                 <div class="profileName"><? echo $userData['nickname']; ?></div>
                 <div class="profileEmail"><? echo $userData['email']; ?></div>
                 <div class="profileBio"><? echo $userData['bio']; ?></div>
