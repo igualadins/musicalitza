@@ -1,12 +1,12 @@
 <?php
-// iniciem la sessió de php
+// iniciem la sessiï¿½ de php
 session_start();
-// incloem la connexió amb la bbdd
+// incloem la connexiï¿½ amb la bbdd
 include('connect.php');
 // incloem la classe usuari
 include('class/user.php');
 $user = new User($dbConnection);
-// fem la verificació de si l'usuari està identificat o no (boolean)
+// fem la verificaciï¿½ de si l'usuari estï¿½ identificat o no (boolean)
 $userLoggedIn = $user->checkUserSession();
 // ara podem condicionar certes coses preguntant si $userLoggedIn es 0 o 1
 ?>
@@ -17,10 +17,13 @@ $userLoggedIn = $user->checkUserSession();
         <title>Musicalitza - Amistats amb banda sonora</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Lobster|Anton|Roboto|Roboto+Condensed" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Oswald|Lobster|Anton|Roboto|Roboto+Condensed|Mina|Yanone+Kaffeesatz|Arvo|Fjalla+One" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
 
@@ -54,8 +57,9 @@ $userLoggedIn = $user->checkUserSession();
                             <li><a href="#">Concerts</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <? if ($userLoggedIn) echo 'Hola '.$_SESSION['nickname']; else echo 'El meu compte' ?></a></li>
-                            <? if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessió</a></li>'; ?>
+                            <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <?php if ($userLoggedIn) echo 'Hola ' . $_SESSION['nickname'];
+else echo 'El meu compte' ?></a></li>
+<?php if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessiï¿½</a></li>'; ?>
                         </ul>
                     </div>
                 </div>

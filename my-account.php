@@ -3,7 +3,7 @@
 require 'header.php';
 ?>
 
-<? if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari ?>
+<?php if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari ?>
 
       <?php if(isset($_GET['newuser'])) { ?>
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -13,21 +13,21 @@ require 'header.php';
           Et recomanem que completis el teu perfil amb una petita bio i la teva foto, i llavors ja pots començar a buscar artistes i albums favorits
           que t'ajudaran a trobar gent amb les mateixes afinitats musicals que tu.<br />
         </div>
-      <? } ?>
+      <?php } ?>
 
     <div id="my-account" class="container top40 bottom80">
 
         <div class="row">
             <div class="col-sm-4 col-xs-12">
-              <? include 'user-panel.php'; ?>
+              <?php include 'user-panel.php'; ?>
             </div>
             <div class="col-sm-8 col-xs-12">
               <div class="userPanelSectionBox text-center">
-                <? $userData = $user->getUserDataById($_SESSION['id']); ?>
+                <?php $userData = $user->getUserDataById($_SESSION['id']); ?>
                 <div class="profilePicture"><img src="img/users/_user.jpg" class="img-circle" /></div>
-                <div class="profileName"><? echo $userData['nickname']; ?></div>
-                <div class="profileEmail"><? echo $userData['email']; ?></div>
-                <div class="profileBio"><? echo $userData['bio']; ?></div>
+                <div class="profileName"><?php echo $userData['nickname']; ?></div>
+                <div class="profileEmail"><?php echo $userData['email']; ?></div>
+                <div class="profileBio"><?php echo $userData['bio']; ?></div>
                 <div class="row">
                   <div class="col-md-2 col-xs-4">
                     <div class="favoriteItemsNumber">12</div>
@@ -60,7 +60,7 @@ require 'header.php';
 
     </div>
 
-<? } else { // Si l'usuari no està identificat, mostrem el form de login i el boto de registre ?>
+<?php } else { // Si l'usuari no està identificat, mostrem el form de login i el boto de registre ?>
 
     <div id="my-account" class="container top40 bottom80">
 
@@ -77,7 +77,7 @@ require 'header.php';
             Hi ha hagut un error en l'inici de sessió o en les dades enviades.<br>
             Si us plau, revisa les credencials i torna a intentar-ho
           </div>
-        <? } ?>
+        <?php } ?>
 
         <div class="row top40 bottom40 login">
 
@@ -102,7 +102,7 @@ require 'header.php';
 
     </div>
 
-<? } ?>
+<?php } ?>
 
 <?php
 

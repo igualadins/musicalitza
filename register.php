@@ -3,7 +3,7 @@
 require 'header.php';
 ?>
 
-<? if ($userLoggedIn) { // Si l'usuari ha fet login mostrem un boto cap el panell d'usuari ?>
+<?php if ($userLoggedIn) { // Si l'usuari ha fet login mostrem un boto cap el panell d'usuari ?>
 
     <div id="my-account" class="container top40 bottom80">
 
@@ -21,7 +21,7 @@ require 'header.php';
 
     </div>
 
-<? } else { // Si l'usuari no està identificat, mostrem el form de registre ?>
+<?php } else { // Si l'usuari no està identificat, mostrem el form de registre ?>
 
     <div id="my-account" class="container top40 bottom80">
 
@@ -41,7 +41,7 @@ require 'header.php';
               Hi ha hagut un error en el procès de registre d'usuari
               <?php if(isset($_GET['message'])) { echo "<br><b>Motiu: </b>".$_GET['message']; }?>
             </div>
-          <? } ?>
+          <?php } ?>
 
           <div class="col-sm-6">
             <h2 class="form-signin-heading">Registra't ara i podràs..</h2>
@@ -83,7 +83,7 @@ require 'header.php';
 
     </div>
 
-<? } ?>
+<?php } ?>
 
 <?php
 
