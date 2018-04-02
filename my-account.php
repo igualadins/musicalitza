@@ -23,7 +23,6 @@ require 'header.php';
             </div>
             <div class="col-sm-8 col-xs-12">
               <div class="userPanelSectionBox text-center">
-<<<<<<< HEAD
                 <?php $userData = $user->getUserDataById($_SESSION['id']); ?>
                 <div class="profilePicture">
                   <?php if (strlen($userData['image'])) { ?>
@@ -35,19 +34,6 @@ require 'header.php';
                 <div class="profileName"><?php echo $userData['nickname']; ?></div>
                 <div class="profileEmail"><?php echo $userData['email']; ?></div>
                 <div class="profileBio"><?php echo $userData['bio']; ?></div>
-=======
-                <? $userData = $user->getUserDataById($_SESSION['id']); ?>
-                <div class="profilePicture">
-                  <? if (strlen($userData['image'])) { ?>
-                    <img src="<? echo $userData['image']; ?>" class="img-circle" />
-                  <? } else { ?>
-                    <img src="img/users/_user.jpg" class="img-circle" />
-                  <? } ?>                  
-                </div>
-                <div class="profileName"><? echo $userData['nickname']; ?></div>
-                <div class="profileEmail"><? echo $userData['email']; ?></div>
-                <div class="profileBio"><? echo $userData['bio']; ?></div>
->>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
                 <div class="row">
                   <div class="col-md-2 col-xs-4">
                     <div class="favoriteItemsNumber">12</div>

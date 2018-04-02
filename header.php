@@ -57,14 +57,8 @@ $userLoggedIn = $user->checkUserSession();
                             <li><a href="#">Concerts</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-<<<<<<< HEAD
-                            <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <?php if ($userLoggedIn) echo 'Hola ' . $_SESSION['nickname'];
-else echo 'El meu compte' ?></a></li>
+                            <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <?php if ($userLoggedIn) echo 'Hola ' . $_SESSION['nickname']; else echo 'El meu compte' ?></a></li>
                             <?php if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessi&oacute;</a></li>'; ?>
-=======
-                            <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <? if ($userLoggedIn) echo 'Hola '.$_SESSION['nickname']; else echo 'El meu compte' ?></a></li>
-                            <? if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessi&oacute;</a></li>'; ?>
->>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
                         </ul>
                     </div>
                 </div>

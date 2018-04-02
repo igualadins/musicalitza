@@ -55,7 +55,6 @@
 
     </div>
 
-<<<<<<< HEAD
 </footer>
 <!-- End Footer -->
 <script src="js/jquery.min.js" type="text/javascript"></script>
@@ -63,10 +62,4 @@
 <script src="js/wow.min.js" type="text/javascript"></script>
 <script src="js/custom.js" type="text/javascript"></script>
 </body>
-=======
-        <script src="js/jquery.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="js/custom.js" type="text/javascript"></script>
-    </body>
->>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
 </html>

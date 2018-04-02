@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* 
  * Musicalitza. Custom JS scripts
  */
@@ -20,8 +19,6 @@ $(document).ready(function () {
         });
     });
 });
-=======
->>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
 
 // Per quan es fa servir l'input de tipus file per actualitzar l'imatge
 // Amb aquest petit script li canviem el nom pel nom de l'imatge sel.lecionada
@@ -36,8 +33,5 @@ $(document).ready( function() {
       var input = $(this).parents('.input-group').find(':text');
       input.val(label);
     });
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
+
