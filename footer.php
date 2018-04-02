@@ -57,11 +57,9 @@
 
 </footer>
 <!-- End Footer -->
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/wow.min.js" type="text/javascript"></script>
-
-<script src="js/wow.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="js/custom.js" type="text/javascript"></script>
 </body>
 </html>

@@ -631,8 +631,8 @@ ul.userPanelSections li .label {
     margin-left: 3px;
 }
 
-.profilePicture {
-
+.profilePicture img {
+    max-width: 250px;
 }
 
 .profileName, .favoriteItemsNumber {

@@ -1,12 +1,12 @@
 <?php
-// iniciem la sessi� de php
+// iniciem la sessió de php
 session_start();
-// incloem la connexi� amb la bbdd
+// incloem la connexió amb la bbdd
 include('connect.php');
 // incloem la classe usuari
 include('class/user.php');
 $user = new User($dbConnection);
-// fem la verificaci� de si l'usuari est� identificat o no (boolean)
+// fem la verificació de si l'usuari està identificat o no (boolean)
 $userLoggedIn = $user->checkUserSession();
 // ara podem condicionar certes coses preguntant si $userLoggedIn es 0 o 1
 ?>
@@ -59,7 +59,7 @@ $userLoggedIn = $user->checkUserSession();
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <?php if ($userLoggedIn) echo 'Hola ' . $_SESSION['nickname'];
 else echo 'El meu compte' ?></a></li>
-<?php if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessi�</a></li>'; ?>
+                            <?php if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessi&oacute;</a></li>'; ?>
                         </ul>
                     </div>
                 </div>

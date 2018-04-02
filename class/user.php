@@ -246,6 +246,22 @@ class User
 
 
 	/**
+	*
+	* Actualitza la foto de perfil d'un usuari
+	*
+	* @param string $targetPath Ruta de la nova imatge
+	* @param Int $userId
+	*/
+
+	public function updatePicture($targetPath, $userId)
+	{
+		//Guardem les dades, i actualitzem la sessió
+		$query = $this->dbConnection->prepare("UPDATE users SET image = ? WHERE id = ?");
+		$query->execute(array($targetPath, $userId));
+	}
+
+
+	/**
 	* Tanca la sessió de l'usuari i reseteja les dades a zero
 	*
 	*/

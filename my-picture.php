@@ -5,16 +5,6 @@ require 'header.php';
 
 <?php if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari ?>
 
-      <?php if(isset($_GET['newuser'])) { ?>
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <b>Benvingut a Musicalitza</b><br />
-          Hola amant de la música, benvingut a la nostra comunitat. :)<br />
-          Et recomanem que completis el teu perfil amb una petita bio i la teva foto, i llavors ja pots començar a buscar artistes i albums favorits
-          que t'ajudaran a trobar gent amb les mateixes afinitats musicals que tu.<br />
-        </div>
-      <?php } ?>
-
     <div id="my-account" class="container top40 bottom80">
 
         <div class="row">
@@ -32,36 +22,23 @@ require 'header.php';
                   <?php } ?>                  
                 </div>
                 <div class="profileName"><?php echo $userData['nickname']; ?></div>
-                <div class="profileEmail"><?php echo $userData['email']; ?></div>
-                <div class="profileBio"><?php echo $userData['bio']; ?></div>
-                <div class="row">
-                  <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">12</div>
-                    <div class="favoriteItemsName">Artistes favorits</div>
+
+                <form autocomplete="off" action="action-picture-update.php" method="POST" enctype="multipart/form-data">
+                  <div class="input-group">
+                      <label class="input-group-btn">
+                          <span class="btn btn-info">
+                              <span class="glyphicon glyphicon-picture"></span> Cercar una imatge al dispositiu <input type="file" name="inputPicture" style="display: none;">
+                          </span>
+                      </label>
+                      <input type="text" class="form-control" readonly>
                   </div>
-                  <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">21</div>
-                    <div class="favoriteItemsName">Álbums favorits</div>
-                  </div>
-                  <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">46</div>
-                    <div class="favoriteItemsName">Amics</div>
-                  </div>
-                  <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">2</div>
-                    <div class="favoriteItemsName">Sol.licituds</div>
-                  </div>
-                  <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">1</div>
-                    <div class="favoriteItemsName">Xats pendents</div>
-                  </div>
-                  <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">0</div>
-                    <div class="favoriteItemsName">Bloquejats</div>
-                  </div>
-                </div>
-              </div>
+                  <div class="clearfix"></div>
+                  <input type="hidden" name="userId" value="<?php echo $userData['id'] ?>" />
+                  <input type="submit" name="enviar" value="Actualitzar imatge" class="btn btn-lg btn-primary"  tabindex="2" />
+                </form>
+                <p><br/>* Tamany recomanat 250x250px. L'imatge serà redimensionada a aquest tamany si es mes gran.</p>
             </div>
+          </div>
         </div>
 
     </div>
