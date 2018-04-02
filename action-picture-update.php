@@ -58,4 +58,8 @@ if(isset($_POST['enviar']) and isset($_POST['userId'])) {
 header("Location: my-picture.php");
 
 
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185

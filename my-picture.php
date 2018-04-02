@@ -3,12 +3,17 @@
 require 'header.php';
 ?>
 
+<<<<<<< HEAD
 <?php if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari ?>
+=======
+<? if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari ?>
+>>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
 
     <div id="my-account" class="container top40 bottom80">
 
         <div class="row">
             <div class="col-sm-4 col-xs-12">
+<<<<<<< HEAD
               <?php include 'user-panel.php'; ?>
             </div>
             <div class="col-sm-8 col-xs-12">
@@ -22,6 +27,21 @@ require 'header.php';
                   <?php } ?>                  
                 </div>
                 <div class="profileName"><?php echo $userData['nickname']; ?></div>
+=======
+              <? include 'user-panel.php'; ?>
+            </div>
+            <div class="col-sm-8 col-xs-12">
+              <div class="userPanelSectionBox text-center">
+                <? $userData = $user->getUserDataById($_SESSION['id']); ?>
+                <div class="profilePicture">
+                  <? if (strlen($userData['image'])) { ?>
+                    <img src="<? echo $userData['image']; ?>" class="img-circle" />
+                  <? } else { ?>
+                    <img src="img/users/_user.jpg" class="img-circle" />
+                  <? } ?>                  
+                </div>
+                <div class="profileName"><? echo $userData['nickname']; ?></div>
+>>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
 
                 <form autocomplete="off" action="action-picture-update.php" method="POST" enctype="multipart/form-data">
                   <div class="input-group">
@@ -33,7 +53,11 @@ require 'header.php';
                       <input type="text" class="form-control" readonly>
                   </div>
                   <div class="clearfix"></div>
+<<<<<<< HEAD
                   <input type="hidden" name="userId" value="<?php echo $userData['id'] ?>" />
+=======
+                  <input type="hidden" name="userId" value="<? echo $userData['id'] ?>" />
+>>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
                   <input type="submit" name="enviar" value="Actualitzar imatge" class="btn btn-lg btn-primary"  tabindex="2" />
                 </form>
                 <p><br/>* Tamany recomanat 250x250px. L'imatge serà redimensionada a aquest tamany si es mes gran.</p>
@@ -43,7 +67,11 @@ require 'header.php';
 
     </div>
 
+<<<<<<< HEAD
 <?php } else { // Si l'usuari no està identificat, mostrem el form de login i el boto de registre ?>
+=======
+<? } else { // Si l'usuari no està identificat, mostrem el form de login i el boto de registre ?>
+>>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
 
     <div id="my-account" class="container top40 bottom80">
 
@@ -60,7 +88,11 @@ require 'header.php';
             Hi ha hagut un error en l'inici de sessió o en les dades enviades.<br>
             Si us plau, revisa les credencials i torna a intentar-ho
           </div>
+<<<<<<< HEAD
         <?php } ?>
+=======
+        <? } ?>
+>>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
 
         <div class="row top40 bottom40 login">
 
@@ -85,7 +117,11 @@ require 'header.php';
 
     </div>
 
+<<<<<<< HEAD
 <?php } ?>
+=======
+<? } ?>
+>>>>>>> 2f57c9101ed4b890980467b97be3a255149f6185
 
 <?php
 
