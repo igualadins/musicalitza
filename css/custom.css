@@ -592,6 +592,8 @@ footer .fa {
     margin-bottom: 10px;
 }
 
+/* user zone */
+
 .userPanelSectionBox {
     border-radius: 2px;
     box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
@@ -652,4 +654,8 @@ ul.userPanelSections li .label {
     margin: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #ebebeb;
+}
+
+.input-group {
+    margin-bottom: 20px;
 }
