@@ -62,5 +62,6 @@
 <script src="js/wow.min.js" type="text/javascript"></script>
 <script src="js/custom.js" type="text/javascript"></script>
 <script src="js/artists.js" type="text/javascript"></script>
+<script src="js/friends.js" type="text/javascript"></script>
 </body>
 </html>

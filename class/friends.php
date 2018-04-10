@@ -21,44 +21,54 @@ class Friends
 	{
 		$this->dbConnection = $dbConnection;
 		$this->userId = $userId;
-		$this->updateFriendsCount();
+                // PENDENT, he comentat linia pq donva error
+		//$this->updateFriendsCount();
 	}
 
 
 	/**
-	* Llegeix els usuaris que estàn acceptats
+	* Llegeix els usuaris que estàn acceptats, que seran aquells que accepted=1 i blocked=0
 	*
 	* @return array amb totes les dades dels usuaris
 	*/
-
 	public function getUserAcceptedFriends()
-	{
-		return array();
+	{            
+            $query = $this->dbConnection->prepare("SELECT u.nickname as nom, u.image as imagen, u.id as friendId FROM userfriends us LEFT JOIN users u on (us.friendId=u.id) WHERE us.userId = :userId AND us.accepted = 1 AND us.blocked = 0");         
+            $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);   
+            $query->execute();
+            $dataSet = $query->fetchAll(PDO::FETCH_ASSOC);            
+            return $dataSet;
 	}
 
 
 	/**
-	* Llegeix els usuaris que NO estàn acceptats
+	* Llegeix els usuaris que NO estàn acceptats, que seran aquells que accepted=0 i blocked=0
 	*
 	* @return array amb totes les dades dels usuaris
 	*/
-
 	public function getUserNotAcceptedFriends()
-	{
-		return array();
+	{		
+            $query = $this->dbConnection->prepare("SELECT u.nickname as nom, u.image as imagen, u.id as friendId FROM userfriends us LEFT JOIN users u on (us.friendId=u.id) WHERE us.userId = :userId AND us.accepted = 0 AND us.blocked = 0");         
+            $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);   
+            $query->execute();
+            $dataSet = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $dataSet;
 	}
 
 
 
 	/**
-	* Llegeix els usuaris bloquejats
+	* Llegeix els usuaris bloquejats, que seran aquells que blocked=1, per tant poden tenir accepted=1 i 0
 	*
 	* @return array amb totes les dades dels usuaris
 	*/
-
 	public function getUserBlockedFriends()
-	{
-		return array();
+	{		
+            $query = $this->dbConnection->prepare("SELECT u.nickname as nom, u.image as imagen, u.id as friendId FROM userfriends us LEFT JOIN users u on (us.friendId=u.id) WHERE us.userId = :userId AND us.blocked = 1");         
+            $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);   
+            $query->execute();
+            $dataSet = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $dataSet;
 	}
 
 
@@ -69,7 +79,7 @@ class Friends
 
 	public function updateFriendsCount()
 	{
-		$this->$acceptedFriends=1;
+		$this->$acceptedFriends=1; 
 		$this->$pendingFriends=1;
 		$this->$blockedFriends=1;
 		return true;
@@ -96,10 +106,16 @@ class Friends
 	* @param boolean $accepted indica l'acció a realitzar (false no acceptat, true acceptat)
 	* @return boolean per indicar si ha anat correctament el procès
 	*/
-
 	public function updateAcceptFriend($friendId,$accepted)
 	{
-		return true;
+		$query = $this->dbConnection->prepare("UPDATE userfriends SET accepted=? WHERE userId=? AND friendId=?");
+		$query->execute(array( $accepted, $this->userId, $friendId ));
+
+		if($query->errorCode() == 0) { // Si no hi ha cap problema, retornem l'identificador de la rel.lació                                        
+                    return 1;
+		} else {                    
+                    return -1; 
+		}
 	}
 
 
@@ -110,10 +126,19 @@ class Friends
 	* @param boolean $blocked indica l'acció a realitzar (false desbloquejar, true bloquejar)
 	* @return boolean per indicar si ha anat correctament el procès
 	*/
-
 	public function updateBlockFriend($friendId,$blocked)
-	{
-		return true;
+	{		
+		$query = $this->dbConnection->prepare("UPDATE userfriends SET blocked=? WHERE userId=? AND friendId=?");
+		$query->execute(array( $blocked, $this->userId, $friendId ));
+
+		if($query->errorCode() == 0) { // Si no hi ha cap problema, retornem l'identificador de la rel.lació                    
+                    $query2 = $this->dbConnection->prepare("SELECT accepted FROM userfriends WHERE userID=? AND friendId=?");
+                    $query2->execute(array( $this->userId, $friendId ));
+                    $result = $query2->fetch(PDO::FETCH_ASSOC);
+                    return $result['accepted'];
+		} else {                    
+                    return -1; 
+		}                                
 	}
 
 
@@ -123,10 +148,16 @@ class Friends
 	* @param int $friendId identificador d'usuari al que volem eliminar d'amics
 	* @return boolean per indicar si ha anat correctament el procès
 	*/
-
 	public function deleteFriend($friendId)
 	{
-		return true;
+		$query = $this->dbConnection->prepare("DELETE FROM userfriends WHERE userId=? AND friendId=?");
+		$query->execute(array( $this->userId, $friendId ));
+
+		if($query->errorCode() == 0) { // Si no hi ha cap problema, retornem l'identificador de la rel.lació                                        
+                    return 1;
+		} else {                    
+                    return -1; 
+		}
 	}
 
 
