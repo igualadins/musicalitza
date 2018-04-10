@@ -37,25 +37,11 @@ require 'header.php';
 
     </div>
 
-<?php } else { // Si l'usuari no està identificat, mostrem el form de login i el boto de registre ?>
+<?php } else { // Si l'usuari no està identificat, mostrem error 
 
-    <div id="my-account" class="container top40 bottom80">
+  include 'error.php';
 
-        <div class="row top40 bottom40 login">
-
-            <div class="alert alert-danger" role="alert">
-              <b>Error en sessi&oacute;</b><br />
-              Hi ha hagut un error en l'inici de sessió o en les dades enviades.<br>
-              Si us plau, torna a identificar-te per continuar.
-            </div>
-
-        </div>
-
-    </div>
-
-<?php } ?>
-
-<?php
+} 
 
 require 'footer.php';
 ?>  

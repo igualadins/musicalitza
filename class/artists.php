@@ -10,14 +10,12 @@
 class Artists
 {
 	private $dbConnection;
-	private $albums;
 
 	// Al iniciar seteja la connexió amb la base de dades i també referenciem l'objecte de la clase albums que farem servir internament
 
-	public function __construct(\PDO $dbConnection, $albums)
+	public function __construct(\PDO $dbConnection)
 	{
 		$this->dbConnection = $dbConnection;
-		$this->$albums = $albums;
 	}
 
 
@@ -27,7 +25,7 @@ class Artists
 	* @return array amb totes les dades dels artistes
 	*/
 
-	public function getTop10FavoritArtists()
+	public function getTop10FavoritArtists() //FALTA
 	{
 		return array();
 	}
@@ -39,7 +37,7 @@ class Artists
 	* @return array amb totes les dades dels artistes
 	*/
 
-	public function getTop10RatedArtists()
+	public function getTop10RatedArtists() //FALTA
 	{
 		return array();
 	}
@@ -54,7 +52,13 @@ class Artists
 
 	public function searchArtistsByName($name)
 	{
-		return array();
+		$query = $this->dbConnection->prepare(" SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM artist a
+																						LEFT JOIN userartists ua ON ua.artistId = a.id
+																						WHERE a.name LIKE ?
+																						GROUP BY a.id
+																						ORDER BY a.name ASC");
+		$query->execute(array("%$name%"));
+		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 
@@ -65,9 +69,66 @@ class Artists
 	* @return array amb totes les dades dels artistes rebudes
 	*/
 
-	public function searchArtistsByNameInAPI($name)
+	public function searchArtistsByNameInAPI($name) 
 	{
-		return array();
+
+		// Construim els paràmetres de url per fer la crida a l'API de LastFM
+		// Amb la api_key que hem generat i el mètode artist.search
+		$queryParams = http_build_query([
+		 'method' => 'artist.search',
+		 'artist' => $name,
+		 'limit' => 100,
+		 'api_key' => 'c2cef55c7ff22d821abe2b6c2529747e',
+		 'format' => 'json'
+		]);
+
+		// Contruim la url a on farem la crida
+		$url = "http://ws.audioscrobbler.com/2.0/?".$queryParams;
+
+		// Iniciem curl per fer la petició
+		$ch = curl_init();
+		// Deshabilitem SSL perque l'api no ho fa servir
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		// Per obtenir el retorn de la resposta
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// Li indiquem la url on fer la petició
+		curl_setopt($ch, CURLOPT_URL, $url);
+		// Executem la petició
+		$APIresult=curl_exec($ch);
+		// Tanquem la connexió
+		curl_close($ch);
+		// Decodifiquem el JSON rebut
+		$APIresult = json_decode($APIresult, true);
+
+		$return = array();
+
+		// Si troba resultats els tractem abans de retornar
+		if ($APIresult['results']['opensearch:totalResults'] > 0) {
+
+			foreach ($APIresult['results']['artistmatches']['artist'] as $artist) {
+				$tmpArtist = array();
+				// nomès artistes que tinguin l'identificador public de lastFM, n'hi ha que no ho tenen perque no tenen molta info o no estàn verificats
+				// Només artistes que no estiguin ja a la nostra bbdd
+				if (strlen($artist['mbid']) && $this->getArtistIdByMBID($artist['mbid']) == 0) { 					
+					// Construim un array per cada artista, nomès amb les dades que necessitem
+					$tmpArtist['name'] = $artist['name'];
+					$tmpArtist['mbid'] = $artist['mbid'];
+					if( count($artist['image']) > 2 ) {
+						$tmpArtist['image'] = $artist['image'][3]['#text']; // Si tenim l'imatge "extralarge" millor
+					} else if ( count($artist['image']) ) { 
+						$tmpArtist['image'] = $artist['image'][0]['#text']; // Si no la tenim, posem la primera que arriba
+					} else {
+						$tmpArtist['image'] = '';
+					}
+					if (strlen($tmpArtist['image'])) array_push($return, $tmpArtist); // Afegim l'artista a l'array que retornarem (Nomès si te imatge. Si no, no l'afegim...)
+				}
+			}
+
+		}
+
+		// Retornem el nostre array d'artistes fet del resultat de l'API de LastFM
+		return $return;
+
 	}
 
 
@@ -80,7 +141,12 @@ class Artists
 
 	public function getArtistData($artistId)
 	{
-		return array();
+		$query = $this->dbConnection->prepare(" SELECT a.id, a.name, a.image, a.bio, count(ua.id) as likes FROM artist a
+																						LEFT JOIN userartists ua ON ua.artistId = a.id
+																						WHERE a.id = ?
+																						GROUP BY a.id");
+		$query->execute(array($artistId));
+		return $query->fetch(PDO::FETCH_ASSOC);
 	}
 
 
@@ -91,9 +157,16 @@ class Artists
 	* @return Int id de l'artista o 0 si no existeix
 	*/
 
-	public function getArtistByMBID($mbId)
-	{
-		return 1;
+	public function getArtistIdByMBID($mbId)
+	{	
+		$query = $this->dbConnection->prepare("SELECT id FROM artist WHERE mbid = ?");
+		$query->execute(array($mbId));
+		$return = 0;
+		if ($query->rowCount() > 0) {
+			$data = $query->fetch(PDO::FETCH_ASSOC);
+			$return = $data['id'];
+		}		
+		return $return;
 	}
 
 
@@ -101,36 +174,94 @@ class Artists
 	* Retorna l'info d'un artista a partir del seu identificador public desde l'API de LastFM
 	*
   * @param $mbId String Identificador public (de l'API de LastFM) de l'artista
-	* @return Int id de l'artista o 0 si no existeix
+	* @return Array amb les dades
 	*/
 
 	public function getArtistDataByMBIDFromAPI($mbId)
 	{
-		return 1;
+		
+		// Construim els paràmetres de url per fer la crida a l'API de LastFM
+		// Amb la api_key que hem generat i el mètode artist.search
+		$queryParams = http_build_query([
+		 'method' => 'artist.getinfo',
+		 'mbid' => $mbId,
+		 'api_key' => 'c2cef55c7ff22d821abe2b6c2529747e',
+		 'lang' => 'es',
+		 'format' => 'json'
+		]);
+
+		// Contruim la url a on farem la crida
+		$url = "http://ws.audioscrobbler.com/2.0/?".$queryParams;
+
+		// Iniciem curl per fer la petició
+		$ch = curl_init();
+		// Deshabilitem SSL perque l'api no ho fa servir
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		// Per obtenir el retorn de la resposta
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// Li indiquem la url on fer la petició
+		curl_setopt($ch, CURLOPT_URL, $url);
+		// Executem la petició
+		$APIresult=curl_exec($ch);
+		// Tanquem la connexió
+		curl_close($ch);
+		// Decodifiquem el JSON rebut
+		$APIresult = json_decode($APIresult, true);
+
+		return $APIresult;
 	}
 
 
 	/**
-	* Importa un nou artista a la bbdd i també tots els seus discos desde l'API de LastFM a partir del seu mbId
+	* Importa un nou artista a la bbdd desde l'API de LastFM a partir del seu mbId
 	*
   * @param $mbId String Identificador public (de l'API de LastFM) de l'artista
 	* @return $artistId Int identificador de l'artista
 	*/
 
-	public function setArtistAndAlbums($mbId)
+	public function setArtist($mbId) 
 	{
-		return 1;
+		// Obtenim l'info de l'artista i el guardem
+		$artist = $this->getArtistDataByMBIDFromAPI($mbId);
+		$artist = $artist['artist'];
+
+		if( count($artist['image']) > 2 ) {
+			$image = $artist['image'][3]['#text']; // Si tenim l'imatge "extralarge" millor
+		} else if ( count($artist['image']) ) { 
+			$image = $artist['image'][0]['#text']; // Si no la tenim, posem la primera que arriba
+		} else {
+			$image = '';
+		}
+
+		try {
+			$saveImg = 'img/artists/'.$mbId.'.png'; // Ruta on guardarem l'imatge de l'artista
+			file_put_contents($saveImg, file_get_contents($image)); // Guardem l'imatge
+		} catch (Exception $e) { // Si hi ha algun error en el procès parem l'execució
+			var_dump($e->getMessage());
+			die();
+		}
+
+		// Preparem la query per guardar l'artista
+		$query = $this->dbConnection->prepare("INSERT INTO artist (id, mbid, name, bio, image) VALUES ('', ?, ?, ?, ?)");
+		$query->execute(array( $mbId, $artist['name'], $artist['bio']['content'], $saveImg ));
+
+		if($query->errorCode() == 0) { // Si no hi ha cap problema, guardem l'id del nou artista
+			return $this->dbConnection->lastInsertId();
+		} else {
+			return 0; // Si hi ha algun error en el procès retornem 0
+		}
+
 	}
 
 
 	/**
-	* Actualitza un artista i també tots els seus discos desde l'API de LastFM a partir del seu mbId
+	* Actualitza un artista desde l'API de LastFM a partir del seu mbId
 	*
   * @param $artistId Int Identificador privat de l'artista
   * @param $mbId String Identificador public (de l'API de LastFM) de l'artista
 	*/
 
-	public function updateArtistAndAlbums($artistId,$mbId)
+	public function updateArtist($artistId,$mbId)//FALTA
 	{
 		return true;
 	}
@@ -144,9 +275,19 @@ class Artists
 	* @return $userArtistId Int identificador de la rel.lació
 	*/
 
-	public function setFavorite($userId,$artistId)
+	public function setFavorite($userId,$artistId) 
 	{
-		return 1;
+		
+		// Preparem la query per guardar l'artista a favorits
+		$query = $this->dbConnection->prepare("INSERT INTO userartists (id, userId, artistId, priority) VALUES ('', ?, ?, 1)");
+		$query->execute(array( $userId, $artistId ));
+
+		if($query->errorCode() == 0) { // Si no hi ha cap problema, retornem l'identificador de la rel.lació
+			return $this->dbConnection->lastInsertId();
+		} else {
+			return 0; // Si hi ha algun error en el procès retornem 0
+		}
+
 	}
 
 
@@ -157,9 +298,11 @@ class Artists
 	* @param artistId Int identificador de l'artista
 	*/
 
-	public function unsetFavorite($userId,$artistId)
+	public function unsetFavorite($userId,$artistId) 
 	{
-		return true;
+		// Preparem la query per guardar l'artista a favorits
+		$query = $this->dbConnection->prepare("DELETE FROM userartists WHERE userId = ? AND artistId = ?");
+		$query->execute(array( $userId, $artistId ));
 	}
 
 
@@ -170,9 +313,14 @@ class Artists
 	* @return array amb tots els artistes
 	*/
 
-	public function getFavoriteArtists($userId)
+	public function getFavoriteArtists($userId) 
 	{
-		return array();
+		$query = $this->dbConnection->prepare(" SELECT a.id, a.name, a.image, (select count(*) from userartists where artistId = a.id) as likes 
+																						FROM artist a, userartists ua
+																						WHERE ua.userId = ? AND a.id = ua.artistId
+																						ORDER BY a.name");
+		$query->execute(array($userId));
+		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 
@@ -183,7 +331,7 @@ class Artists
 	* @return array amb tots els comentaris i valoracions
 	*/
 
-	public function getArtistRatings($artistId)
+	public function getArtistRatings($artistId)//FALTA
 	{
 		return array();
 	}
@@ -196,7 +344,7 @@ class Artists
 	* @return double Val.loració mitja de l'artista
 	*/
 
-	public function getArtistAverageRating($artistId)
+	public function getArtistAverageRating($artistId)//FALTA
 	{
 		return 3;
 	}
@@ -211,7 +359,7 @@ class Artists
 	* @return array amb tots els comentaris i valoracions
 	*/
 
-	public function setArtistRating($userId,$artistId,$rating,$comment)
+	public function setArtistRating($userId,$artistId,$rating,$comment)//FALTA
 	{
 		return true;
 	}

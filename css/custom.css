@@ -45,6 +45,17 @@ a, .btn {
     color: white;  
 }
 
+.loader, .smallLoader {
+    background-image: url('../img/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 150px;
+}
+
+.smallLoader {
+    min-height: 50px;
+}
+
 
 /*Generals*/
 .top40 {
@@ -656,6 +667,106 @@ ul.userPanelSections li .label {
     border-bottom: 1px solid #ebebeb;
 }
 
+.userPanelSectionBox h1, h2 {
+    text-align: left;
+    font-family: Oswald;
+    color: #333;
+}
+
+.userPanelSectionBox #search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.userPanelSectionBox #search-input .input-group {
+    margin-bottom: 0px;
+}
+
+.userPanelSectionBox #search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+.userPanelSectionBox #search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+.userPanelSectionBox #search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+.userPanelSectionBox #search-input .glyphicon-search{
+    font-size: 23px;
+}
+
 .input-group {
     margin-bottom: 20px;
+}
+
+
+/* artists / user zone */
+
+#search-results {
+    padding: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.closeLayerbutton {
+    height: 20px;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.artistElement {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-radius: 2px;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12);
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.artistElement .btn {
+    margin: 5px;
+}
+
+.artistSearchName {
+    display: block;
+    margin: 5px 0px;
+}
+
+.artistSearchLikes {
+    display: block;
+    margin: 7px 0px;
+    color: #999;
+}
+
+#favorit-artists-list {
+    width: 100%;
+    overflow: hidden;
+}
+
+.artistImage {
+    margin-top: 30px;
+}
+
+.artistAlbumsCount, .artistLikesCount {
+    display: block;
+    margin: 7px 0px;
+    color: #666;   
+}
+
+#my-artist-detail .btn {
+    margin: 7px 0px;
 }
