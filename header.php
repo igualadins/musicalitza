@@ -55,7 +55,7 @@ $userLoggedIn = $user->checkUserSession();
                             <li class="active"><a href="#">Artistes</a></li>
                             <li><a href="#">Albums</a></li>
                             <li><a href="#">Concerts</a></li>
-                        </ul>
+                        </ul>                           
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <?php if ($userLoggedIn) echo 'Hola ' . $_SESSION['nickname']; else echo 'El meu compte' ?></a></li>
                             <?php if ($userLoggedIn) echo '<li><a href="action-logout.php"><span class="glyphicon glyphicon-off"></span> Tancar sessi&oacute;</a></li>'; ?>
