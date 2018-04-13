@@ -200,21 +200,31 @@ function esborrar(userId,friendId,tipus){
 function codiAcceptat(userId,friendId,imatge,nom){
             
     var cadena = "<li class=\"list-group-item\" id=\"accept"+friendId+"\">" +
-                                "<img src=\""+imatge+"\" height=\"50\" width=\"50\">" + nom +
-                                "<div class=\"pull-right action-buttons\">" +
-                                    "<button class=\"btn btn-envelope\" type=\"button\" onclick=\"window.location.href='/musicalitza/my-chat.php?friendId="+friendId+"'\">" +
-                                        "<i class=\"glyphicon glyphicon-envelope\"></i>" +
-                                    "</button>" +
-                                    "<button class=\"btn btn-lock\" type=\"button\" onclick=\"bloquejarAcceptat('"+userId+"','"+friendId+"','"+imatge+"','"+nom+"')\">" +
-                                        "<i class=\"glyphicon glyphicon-lock\"></i>" +
-                                    "</button>" +
-                                    "<button class=\"btn btn-trash\" type=\"button\" onclick=\"esborrar('"+userId+"','"+friendId+"','accept')\">" +
-                                        "<i class=\"glyphicon glyphicon-trash\"></i>" +
-                                    "</button>" +
-                                "</div>" +
-                            "</li>";
-    return cadena;
-    
+                    "<div class=\"col-xs-12 col-sm-3\">" +
+                        "<img src=\""+imatge+"\" height=\"50\" width=\"50\" class=\"img-responsive img-circle\">" + 
+                    "</div>" + 
+                    "<div class=\"col-xs-12 col-sm-3\">" +
+                        "<span class=\"name\">"+nom+"</span><br/>" +
+                    "</div>" +
+                    "<div class=\"col-xs-12 col-sm-6\">" +
+                        "<div class=\"pull-right action-buttons\">" +
+                            "<div class=\"pull-right action-buttons\">" +
+                                "<button class=\"btn btn-sm btn-danger btn-lock\" type=\"button\" onclick=\"bloquejarAcceptat('"+userId+"','"+friendId+"','"+imatge+"','"+nom+"')\">" +
+                                    "<i class=\"glyphicon glyphicon-lock\"></i>" +
+                                "</button>" +
+                                "<button class=\"btn btn-sm btn-info btn-envelope\" type=\"button\" onclick=\"window.location.href='/musicalitza/my-chat.php?friendId="+friendId+"'\">" +
+                                    "<i class=\"glyphicon glyphicon-envelope\"></i>" +
+                                "</button>" +
+                                "<button class=\"btn btn-sm btn-warning btn-trash\" type=\"button\" onclick=\"esborrar('"+userId+"','"+friendId+"','accept')\">" +
+                                    "<i class=\"glyphicon glyphicon-trash\"></i>" +
+                                "</button>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class=\"clearfix\"></div>" +
+                "</li>";
+                                               
+    return cadena; 
 }
 
 
@@ -228,19 +238,30 @@ function codiAcceptat(userId,friendId,imatge,nom){
  * @returns {String}
  */
 function codiBloquejat(userId,friendId,imatge,nom){
-    
+        
     var cadena = "<li class=\"list-group-item\" id=\"bloquejat"+friendId+"\">" +
-                                "<img src=\""+imatge+"\" height=\"50\" width=\"50\">" + nom +
-                                "<div class=\"pull-right action-buttons\">" +
-                                    "<button class=\"btn btn-ok\" type=\"button\" onclick=\"acceptarBloquejat('"+userId+"','"+friendId+"','"+imatge+"','"+nom+"')\">" +
-                                        "<i class=\"glyphicon glyphicon-ok\"></i>" +
-                                    "</button>" +
-                                    "<button class=\"btn btn-trash\" type=\"button\" onclick=\"esborrar('"+userId+"','"+friendId+"','bloquejat')\">" +
-                                        "<i class=\"glyphicon glyphicon-trash\"></i>" +
-                                    "</button>" +
-                                "</div>" +
-                            "</li>";
-    return cadena;
+                    "<div class=\"col-xs-12 col-sm-3\">" +
+                        "<img src=\""+imatge+"\" height=\"50\" width=\"50\" class=\"img-responsive img-circle\">" + 
+                    "</div>" + 
+                    "<div class=\"col-xs-12 col-sm-3\">" +
+                        "<span class=\"name\">"+nom+"</span><br/>" +
+                    "</div>" +
+                    "<div class=\"col-xs-12 col-sm-6\">" +
+                        "<div class=\"pull-right action-buttons\">" +
+                            "<div class=\"pull-right action-buttons\">" +
+                                "<button class=\"btn btn-sm btn-success btn-ok\" type=\"button\" onclick=\"acceptarBloquejat('"+userId+"','"+friendId+"','"+imatge+"','"+nom+"')\">" +
+                                    "<i class=\"glyphicon glyphicon-ok\"></i>" +
+                                "</button>" +
+                                "<button class=\"btn btn-sm btn-warning btn-trash\" type=\"button\" onclick=\"esborrar('"+userId+"','"+friendId+"','bloquejat')\">" +
+                                    "<i class=\"glyphicon glyphicon-trash\"></i>" +
+                                "</button>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class=\"clearfix\"></div>" +
+                "</li>";
+                                               
+    return cadena; 
     
 }
 
