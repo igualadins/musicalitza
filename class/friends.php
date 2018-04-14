@@ -124,6 +124,21 @@ class Friends
 
 
 	/**
+	* Retorna un array amb totes les id d'usuaris que tenen alguna rel.lació amb l'usuari (amics, a l'espera o bloquejats)
+	*
+	* @return array amb totes les id dels usuaris
+	*/
+	public function getUserFriendsRelationIdList()
+	{		
+		  $query = $this->dbConnection->prepare("SELECT u.id FROM userfriends us LEFT JOIN users u on (us.friendId=u.id) WHERE us.userId = :userId UNION SELECT u.id FROM userfriends us LEFT JOIN users u on (us.friendId = :userId)");
+		  $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);   
+		  $query->execute();
+		  $dataSet = $query->fetchAll(PDO::FETCH_ASSOC);
+		  return $dataSet;
+	}
+
+
+	/**
 	* Actualitza els valors numèrics dels amics en cada estat ($acceptedFriends, $pendingFriends, $blockedFriends)
 	*
 	*/
@@ -138,6 +153,26 @@ class Friends
 
 
 	/**
+	* Retorna 1 si hi ha registres d'amistat entre 2 usuaris, o 0 si no n'hi ha
+	*
+	* @param int $friendId identificador d'usuari amb el que es vol comprovar amistat
+	* @return boolean per indicar si hi ha rel.lació
+	*/
+
+	public function checkFriendShip($friendId)
+	{
+		$query = $this->dbConnection->prepare("SELECT us.id FROM userfriends us WHERE (us.userId = :userId AND us.friendId = :friendId) OR (us.userId = :friendId AND us.friendId = :userId)");
+	  $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);   
+	  $query->bindValue(':friendId', $friendId, PDO::PARAM_INT);   
+	  $query->execute();
+	  if ($query->rowCount() > 0) {
+	  	return 1;
+	  } else {
+			return 0;
+	  }
+	}
+
+	/**
 	* Envia una nova sol.licitud d'amistat a un usuari
 	*
 	* @param int $friendId identificador d'usuari al que es vol enviar la sol.licitud
@@ -146,7 +181,12 @@ class Friends
 
 	public function sendRequestToFriend($friendId)
 	{
-		return true;
+		if(!$this->checkFriendShip($friendId)) { // Si no hi ha ja una rel.lació previa, fem el procès
+			$query = $this->dbConnection->prepare("INSERT INTO userfriends (id, userId, friendId, accepted, blocked) VALUES ('', :userId, :friendId, 0, 0)");
+		  $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);   
+		  $query->bindValue(':friendId', $friendId, PDO::PARAM_INT);   
+		  $query->execute();
+		}
 	}
 
 

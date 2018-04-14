@@ -265,3 +265,84 @@ function codiBloquejat(userId,friendId,imatge,nom){
     
 }
 
+
+/*
+ * Funcio per sol.licitar amistat a un usuari
+ * OK
+ */
+function solicitarAmistat(userId,friendId){
+   
+    var formData = new FormData();
+    formData.append('userId', userId); 
+    formData.append('friendId', friendId);
+    formData.append('action', 'SOLICITARAMISTAT');
+    $.ajax({
+        url: "action-friends.php",
+        type: "POST",
+        data: formData,
+        contentType:false,
+        cache: false,
+        processData: false,
+        dataType: 'json',
+        beforeSend: function() {
+            $('#userFavoritsElementButton' + friendId).html('Processant ...');
+            $('#userFavoritsElementButton' + friendId).prop( "disabled", true ); 
+        },
+        success: function(data) {
+            if (data.success == true){ // Si ha ido todo bien
+                if (data.accepted >= 0) {                    
+                    $('#userFavoritsElementButton' + friendId).html('Sol.licitud<br />enviada');
+                } else {
+                    alert('Error al sol.licitar amistat');
+                }
+                               
+            } else { // Si han habido problemas
+                alert('Error al sol.licitar amistat');
+            }
+        },
+        error: function() {
+            alert('Error al sol.licitar amistat');
+        }
+    });
+    
+}
+
+/*
+ * Funcio per eliminat la rel.lacio amb un usuari desde fora de la pantalla d'amics
+ * OK
+ */
+function eliminarAmistat(userId,friendId){
+    
+    var formData = new FormData();
+    formData.append('userId', userId); 
+    formData.append('friendId', friendId);     
+    formData.append('action', 'ESBORRAR');
+    $.ajax({
+        url: "action-friends.php",
+        type: "POST",
+        data: formData,
+        contentType:false,
+        cache: false,
+        processData: false,
+        dataType: 'json',
+        beforeSend: function() {
+            $('#userFavoritsElementButton' + friendId).html('Processant ...');
+            $('#userFavoritsElementButton' + friendId).prop( "disabled", true ); 
+        },
+        success: function(data) {
+            if (data.success == true){ // Si ha ido todo bien
+                if (data.accepted >= 0) {
+                    $('#userFavoritsElementButton' + friendId).html('Rel.lació<br />eliminada');
+                } else {
+                    alert('Error');
+                }                                
+            } else { // Si han habido problemas
+                alert('Error');
+            }
+        },
+        error: function() {
+            alert('Error');
+        }
+    });
+    
+}

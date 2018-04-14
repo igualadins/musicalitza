@@ -40,13 +40,13 @@ if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari
                                             </div>
                                             <div class="col-xs-12 col-sm-6">
                                                 <div class="pull-right action-buttons">                                                 
-                                                <button class="btn btn-sm btn-danger btn-lock" type="button" onclick="bloquejarAcceptat('<?php echo "{$userLoggedIn}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', '<?php echo "{$friend['imagen']}"; ?>', '<?php echo "{$friend['nom']}"; ?>')">
+                                                <button class="btn btn-sm btn-danger btn-lock" type="button" onclick="bloquejarAcceptat('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', '<?php echo "{$friend['imagen']}"; ?>', '<?php echo "{$friend['nom']}"; ?>')">
                                                     <i class="glyphicon glyphicon-lock"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-info btn-envelope" type="button" onclick="window.location.href = '/musicalitza/my-chat.php?friendId=<?php echo "{$friend['friendId']}"; ?>'">
+                                                <button class="btn btn-sm btn-info btn-envelope" type="button" onclick="window.location.href = 'my-chat.php?friendId=<?php echo "{$friend['friendId']}"; ?>'">
                                                     <i class="glyphicon glyphicon-envelope"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$userLoggedIn}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'accept')">
+                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'accept')">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </button>
                                                 </div>
@@ -74,10 +74,10 @@ if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari
                                             </div>
                                             <div class="col-xs-12 col-sm-6">
                                                 <div class="pull-right action-buttons">
-                                                <button class="btn btn-sm btn-success btn-ok" type="button" onclick="acceptarPendent('<?php echo "{$userLoggedIn}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', '<?php echo "{$friend['imagen']}"; ?>', '<?php echo "{$friend['nom']}"; ?>')">
+                                                <button class="btn btn-sm btn-success btn-ok" type="button" onclick="acceptarPendent('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', '<?php echo "{$friend['imagen']}"; ?>', '<?php echo "{$friend['nom']}"; ?>')">
                                                     <i class="glyphicon glyphicon-ok"></i>
                                                 </button>                                    
-                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$userLoggedIn}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'pendent')">
+                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'pendent')">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </button>
                                             </div>      
@@ -111,10 +111,10 @@ if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari
                                             </div>
                                             <div class="col-xs-12 col-sm-6">
                                                 <div class="pull-right action-buttons">
-                                                <button class="btn btn-sm btn-success btn-ok" type="button" onclick="acceptarBloquejat('<?php echo "{$userLoggedIn}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', '<?php echo "{$friend['imagen']}"; ?>', '<?php echo "{$friend['nom']}"; ?>')">
+                                                <button class="btn btn-sm btn-success btn-ok" type="button" onclick="acceptarBloquejat('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', '<?php echo "{$friend['imagen']}"; ?>', '<?php echo "{$friend['nom']}"; ?>')">
                                                     <i class="glyphicon glyphicon-ok"></i>
                                                 </button>                                    
-                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$userLoggedIn}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'bloquejat')">
+                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'bloquejat')">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </button>
                                                 </div>
@@ -144,7 +144,7 @@ if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari
                                             </div>
                                             <div class="col-xs-12 col-sm-6">
                                                 <div class="pull-right action-buttons">
-                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$userLoggedIn}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'pendentEnviat')">
+                                                <button class="btn btn-sm btn-warning btn-trash" type="button" onclick="esborrar('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', 'pendentEnviat')">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </button>
                                                 </div>
