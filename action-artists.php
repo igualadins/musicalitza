@@ -55,6 +55,13 @@ if( strtolower( $_SERVER[ 'REQUEST_METHOD' ] ) == 'post') { // Si la petició no
 		    case 'LLISTAFAVORITS':
 		    		$jsondata['userId'] = filter_input (INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador
 		        $jsondata['favoriteArtists'] = $artistsObj->getFavoriteArtists($jsondata['userId']); // retornem la llista de favorits
+		        break;				
+		    // Si estem valorant un artista
+		    case 'VALORAR':
+				    $jsondata['valoracio'] = filter_input (INPUT_POST, 'valoracio', FILTER_SANITIZE_NUMBER_INT); // Agafem la valoracio numerica
+				    $jsondata['comentari'] = filter_input (INPUT_POST, 'comentari', FILTER_SANITIZE_STRING); // Agafem el comentari 
+				    $jsondata['relationId'] = filter_input (INPUT_POST, 'relationId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador de la relació
+		        $artistsObj->setArtistRating($jsondata['relationId'],$jsondata['valoracio'],$jsondata['comentari']); // guardem la valoracio
 		        break;
 		}
 

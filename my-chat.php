@@ -1,13 +1,6 @@
 <?php
 
 require 'header.php';
-
-// ALTER TABLE `userchats` CHANGE `read` `messageRead` TINYINT( 1 ) NOT NULL ;
-
-// Cuando actualice por ajax que mire el ultimo id de mensaje mostrado y actualice los que faltan, sea por actualización o por nuevo mensaje enviado
-
-// cada X que actualice todo el chat?
-
 ?>
 
 <?php 

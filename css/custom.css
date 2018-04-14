@@ -771,6 +771,41 @@ ul.userPanelSections li .label {
     margin: 7px 0px;
 }
 
+.favorits-user {
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.favorits-user-img {
+    min-height: 90px;
+}
+.favorits-user-name {
+
+}
+
+/* valoracions */
+
+.estrella, .estrellaInfo{
+    color: #CCCCCC;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    font-size: 22px;
+}
+.estrella-marcada{
+    color: #FFD700;
+}
+
+.valoracio-user{
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+}
+.valoracio-user-name {
+    font-weight: bold;    
+}
+
+
 /* xat */
 
 #chatMessages {

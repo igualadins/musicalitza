@@ -331,9 +331,14 @@ class Artists
 	* @return array amb tots els comentaris i valoracions
 	*/
 
-	public function getArtistRatings($artistId)//FALTA
+	public function getArtistRatings($artistId)
 	{
-		return array();
+		$query = $this->dbConnection->prepare(" SELECT ar.rating, ar.comment, u.nickname, u.image 
+																						FROM userartistratings ar, userartists ua, users u
+																						WHERE ua.artistId = ? AND ua.id = ar.userArtistId AND u.id = ua.userId
+																						ORDER BY ar.id");
+		$query->execute(array($artistId));
+		return $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 
@@ -344,9 +349,18 @@ class Artists
 	* @return double Val.loració mitja de l'artista
 	*/
 
-	public function getArtistAverageRating($artistId)//FALTA
+	public function getArtistAverageRating($artistId)
 	{
-		return 3;
+		$query = $this->dbConnection->prepare(" SELECT FORMAT ((SUM(ar.rating) / COUNT(ar.id)), 1) as rating
+																						FROM userartistratings ar, userartists ua
+																						WHERE ua.artistId = ? AND ua.id = ar.userArtistId");
+		$query->execute(array($artistId));
+		$return = 0;
+		if ($query->rowCount() > 0) {
+			$data = $query->fetch(PDO::FETCH_ASSOC);
+			$return = $data['rating'];
+		}		
+		return $return;
 	}
 
 
@@ -359,11 +373,72 @@ class Artists
 	* @return array amb tots els comentaris i valoracions
 	*/
 
-	public function setArtistRating($userId,$artistId,$rating,$comment)//FALTA
+	public function setArtistRating($userArtistId,$rating,$comment)
 	{
-		return true;
+		$query = $this->dbConnection->prepare("INSERT INTO userartistratings (userArtistId, rating, comment) VALUES (?, ?, ?) ");
+		$query->execute(array($userArtistId,$rating,$comment));
 	}
 
+
+	/**
+	* Retorna els usuaris que han marcat com favorit a l'artista
+	*
+	* @param artistId Int identificador de l'artista
+	* @return array amb tots els artistes
+	*/
+
+	public function getArtistUsersRelated($artistId) 
+	{
+		$query = $this->dbConnection->prepare(" SELECT u.id, u.nickname, u.image 
+																						FROM userartists ua, users u
+																						WHERE ua.artistId = ? AND u.id = ua.userId
+																						ORDER BY u.nickname");
+		$query->execute(array($artistId));
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+
+	/**
+	* Retorna l'id de rel.lació d'un usuari amb un artista
+	*
+	* @param userId Int identificador de l'usuari
+	* @param artistId Int identificador de l'artista
+	* @return int identificador de la rel.lacio (o 0 si no existeix)
+	*/
+
+	public function getUserArtistRelationId($userId,$artistId)
+	{
+		$query = $this->dbConnection->prepare("SELECT id FROM userartists WHERE userId = ? AND artistId = ?");
+		$query->execute(array($userId,$artistId));
+		$return = 0;
+		if ($query->rowCount() > 0) {
+			$data = $query->fetch(PDO::FETCH_ASSOC);
+			$return = $data['id'];
+		}		
+		return $return;
+	}
+
+
+
+	/**
+	* Retorna l'id de rel.lació de valoració (si existeix) d'un usuari amb un artista
+	*
+	* @param userId Int identificador de l'usuari
+	* @param artistId Int identificador de l'artista
+	* @return int identificador de la rel.lacio (o 0 si no existeix)
+	*/
+
+	public function checkUserArtistValoration($userId,$artistId)
+	{
+		$query = $this->dbConnection->prepare("SELECT ar.id FROM userartistratings ar, userartists ua WHERE ua.userId = ? AND ua.artistId = ? AND ua.id = ar.userArtistId");
+		$query->execute(array($userId,$artistId));
+		$return = 0;
+		if ($query->rowCount() > 0) {
+			$data = $query->fetch(PDO::FETCH_ASSOC);
+			$return = $data['id'];
+		}		
+		return $return;
+	}
 
 }
 
