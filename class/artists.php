@@ -63,6 +63,26 @@ class Artists
 
 
 	/**
+	* Retorna l'info dels albums que te un artista a la bbdd
+	*
+	* @param artistId Int identificador de l'artista
+	* @return array amb totes les dades dels albums
+	*/
+
+	public function getArtistAlbums($artistId)
+	{
+		$query = $this->dbConnection->prepare(" SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM album a
+																						LEFT JOIN artist ar ON ar.id = a.artistId
+																						LEFT JOIN useralbums ua ON ua.albumId = a.id
+																						WHERE ar.id LIKE ?
+																						GROUP BY a.id
+																						ORDER BY a.name ASC");
+		$query->execute(array($artistId));
+		return $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+
+	/**
 	* Cerca artistes segons el criteri de cerca, a l'API de LastFM
 	*
 	* @param name String nom de l'artista a cercar
@@ -369,7 +389,7 @@ class Artists
 	*
 	* @param userArtistId Int identificador de la rel.lació usuari/artista
 	* @param rating Int valoració de l'artista (de 0 a 5 estrelles)
-	* @param userArtistId String Comentari de l'usuari
+	* @param comment String Comentari de l'usuari
 	* @return array amb tots els comentaris i valoracions
 	*/
 

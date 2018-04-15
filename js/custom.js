@@ -114,14 +114,14 @@ $(document).ready(function(){
                     },
                     success: function(data) {
                         if (data.success == true){ // Si ha ido todo bien
-                            $('#contenidor-valoracions').html('<span class="text-success"><i class="glyphicon glyphicon-ok"></i> Valoració registrada correctament</span>').delay(3500).fadeOut(700);
+                            $('#contenidor-valoracions').html('<span class="text-success"><i class="glyphicon glyphicon-ok"></i> Valoracio registrada correctament</span>').delay(3500).fadeOut(700);
                         } else { // Si han habido problemas
-                            alert('Error al fer la valoració');
+                            alert('Error al fer la valoracio');
                             $('#contenidor-valoracions').fade(0);
                         }
                     },
                     error: function() {
-                        alert('Error al fer la valoració');
+                        alert('Error al fer la valoracio');
                         $('#contenidor-valoracions').fade(0);
                     }
                 });

@@ -5,9 +5,15 @@ require 'header.php';
 // incloem la classe artists
 include('class/artists.php');
 $artistsObj = new Artists($dbConnection);
+
+// incloem la classe albums
+include('class/albums.php');
+$albumsObj = new Albums($dbConnection);
+
 $artistId = filter_input (INPUT_GET, 'artistId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador de l'artista
 if ($artistId > 0) {
   $artist = $artistsObj->getArtistData($artistId); // Llegim l'artista
+  $artistAlbums = $artistsObj->getArtistAlbums($artist['id']); // llegim els albums de l'artista
 } else { 
   die('Error: no ha arribat el codi del artista'); 
 }
@@ -27,7 +33,7 @@ if ($artistId > 0) {
 
                 <div class="col-sm-4 col-xs-12">
                   <img src="<? echo $artist['image']; ?>" class="img-responsive artistImage" />
-                  <span class="artistAlbumsCount"><i class="glyphicon glyphicon-cd"></i> XX àlbums</span>
+                  <span class="artistAlbumsCount"><i class="glyphicon glyphicon-cd"></i> <? echo count($artistAlbums); ?> àlbum(s)</span>
                   <span class="artistLikesCount"><i class="glyphicon glyphicon-heart-empty"></i> <? echo $artist['likes']; ?> seguidors</span>
 
                   <? $relationId = $artistsObj->getUserArtistRelationId($_SESSION['id'],$artist['id']); // Mirem si l'usuari te l'artista a favorits ?>
@@ -41,6 +47,7 @@ if ($artistId > 0) {
                         <button class="btn btn-success btn-xs" id="artistElementButton<? echo $artist['id']; ?>" type="button" onclick="addArtistToFavorites('<? echo $artist['id']; ?>');"><i class="glyphicon glyphicon-ok"></i> Afegir favorits</button>
                       <? } ?>
                     </div>
+
                   <a class="btn btn-default btn-xs" href="my-artists.php"><i class="glyphicon glyphicon-chevron-left"></i> Tornar a favorits</a>
 
                   <hr />
@@ -58,6 +65,16 @@ if ($artistId > 0) {
                   </div>
         
                   <a href="#contenidor-valoracions">Veure valoracions</a>
+
+
+                  <hr />
+
+                  <? 
+                    if(count($artistAlbums)) echo '<p class="text-center"><b>Àlbums</b></p>';
+                    foreach ($artistAlbums as $album) {
+                      echo '<div class="favoritAlbumElement col-sm-12" id="favoritAlbumElement'.$album['id'].'"><div class="albumElement"><img src="'.$album['image'].'" class="img-responsive albumSearchImage" /><span class="albumSearchName">'.$album['name'].'</span><span class="albumSearchLikes"><i class="glyphicon glyphicon-heart-empty"></i> '.$album['likes'].' seguidors</span><a class="btn btn-primary btn-xs" href="my-albums-detail.php?albumId='.$album['id'].'"><i class="glyphicon glyphicon-eye-open"></i> Veure fitxa</a></div></div>';
+                    }
+                  ?>
 
                 </div>
                 <div class="col-sm-8 col-xs-12">
