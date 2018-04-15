@@ -714,7 +714,7 @@ ul.userPanelSections li .label {
 }
 
 
-/* artists / user zone */
+/* artists, albums / user zone */
 
 #search-results {
     padding: 20px;
@@ -728,7 +728,7 @@ ul.userPanelSections li .label {
     margin-bottom: 10px;
 }
 
-.artistElement {
+.artistElement, .albumElement {
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-radius: 2px;
@@ -737,37 +737,37 @@ ul.userPanelSections li .label {
     text-align: center;
 }
 
-.artistElement .btn {
+.artistElement .btn, .albumElement .btn {
     margin: 5px;
 }
 
-.artistSearchName {
+.artistSearchName, .albumSearchName {
     display: block;
     margin: 5px 0px;
 }
 
-.artistSearchLikes {
+.artistSearchLikes, .albumSearchLikes {
     display: block;
     margin: 7px 0px;
     color: #999;
 }
 
-#favorit-artists-list {
+#favorit-artists-list, #favorit-albums-list {
     width: 100%;
     overflow: hidden;
 }
 
-.artistImage {
+.artistImage, .albumImage {
     margin-top: 30px;
 }
 
-.artistAlbumsCount, .artistLikesCount {
+.artistAlbumsCount, .artistLikesCount, .albumAlbumsCount, .albumLikesCount {
     display: block;
     margin: 7px 0px;
     color: #666;   
 }
 
-#my-artist-detail .btn {
+#my-artist-detail .btn, #my-album-detail .btn {
     margin: 7px 0px;
 }
 

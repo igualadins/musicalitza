@@ -31,30 +31,35 @@ if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') { // Si la petició no es 
                 $jsondata['search'] = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_STRING); // Agafem el parametre de cerca
                 $jsondata['albums'] = $albumsObj->searchAlbumsByNameInAPI($jsondata['search']); // Fem la cerca i l'afegim al JSON de retorn
                 break;
-            // Si estem afegint un albuma desde l'API de LastFM
+            // Si estem afegint un album desde l'API de LastFM
             case 'AFEGIRALBUM':
                 $jsondata['mbId'] = filter_input(INPUT_POST, 'mbId', FILTER_SANITIZE_STRING); // Agafem el parametre identificador
                 $jsondata['albumId'] = $albumsObj->setAlbum($jsondata['mbId']); // Afegim l'album
-                ChromePhp::log($jsondata['albumId']);
                 break;
-            // Si estem afegint un albuma a favortis
+            // Si estem afegint un album a favortis
             case 'AFEGIRFAVORITS':
                 $jsondata['albumId'] = filter_input(INPUT_POST, 'albumId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador
                 $jsondata['userId'] = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador
-                $jsondata['userAlbumId'] = $albumsObj->setFavorite($jsondata['userId'], $jsondata['albumId']); // Afegim l'albuma a favorits
+                $jsondata['userAlbumId'] = $albumsObj->setFavorite($jsondata['userId'], $jsondata['albumId']); // Afegim l'album a favorits
                 break;
-            // Si estem afegint un albuma a favortis
+            // Si estem afegint un album a favortis
             case 'TREUREFAVORITS':
                 $jsondata['albumId'] = filter_input(INPUT_POST, 'albumId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador
                 $jsondata['userId'] = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador
-                $albumsObj->unsetFavorite($jsondata['userId'], $jsondata['albumId']); // treiem l'albuma de favorits
+                $albumsObj->unsetFavorite($jsondata['userId'], $jsondata['albumId']); // treiem l'album de favorits
                 break;
             // Si estem actulalitzant la llista de  favortis
             case 'LLISTAFAVORITS':
-                ChromePhp::log('llistafavorits');
                 $jsondata['userId'] = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador
                 $jsondata['favoriteAlbums'] = $albumsObj->getFavoriteAlbums($jsondata['userId']); // retornem la llista de favorits
                 break;
+		    // Si estem valorant un album
+		    case 'VALORAR':
+			    $jsondata['valoracio'] = filter_input (INPUT_POST, 'valoracio', FILTER_SANITIZE_NUMBER_INT); // Agafem la valoracio numerica
+			    $jsondata['comentari'] = filter_input (INPUT_POST, 'comentari', FILTER_SANITIZE_STRING); // Agafem el comentari 
+			    $jsondata['relationId'] = filter_input (INPUT_POST, 'relationId', FILTER_SANITIZE_NUMBER_INT); // Agafem el parametre identificador de la relació
+	            $albumsObj->setAlbumRating($jsondata['relationId'],$jsondata['valoracio'],$jsondata['comentari']); // guardem la valoracio
+	        break;
         }
     } catch (Exception $e) { // Si hi ha algun error en el procès, retornem l'error al JSON
         $jsondata['success'] = false;

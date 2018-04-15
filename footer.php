@@ -61,6 +61,7 @@
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 <script src="js/wow.min.js" type="text/javascript"></script>
 <script src="js/custom.js" type="text/javascript"></script>
+<script src="js/albums.js" type="text/javascript"></script>
 <script src="js/artists.js" type="text/javascript"></script>
 <script src="js/friends.js" type="text/javascript"></script>
 <script src="js/chat.js" type="text/javascript"></script>
