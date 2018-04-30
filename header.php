@@ -24,6 +24,7 @@ $userLoggedIn = $user->checkUserSession();
         <link href="https://fonts.googleapis.com/css?family=Oswald|Lobster|Anton|Roboto|Roboto+Condensed|Mina|Yanone+Kaffeesatz|Arvo|Fjalla+One" rel="stylesheet">
         <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
         <link href="css/animate.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     </head>
     <body>
 

@@ -54,7 +54,9 @@ require 'header.php';
                           echo '<div class="header">';
                           if ($side == 'left') { // Si el missatge es de l'usuari loginat va a un costat, si no va a l'altre
                             echo '<strong>'.$userData['nickname'].'</strong> ';
-                            echo '<small class="pull-right text-muted"><span class="glyphicon glyphicon-time"></span> '.$missatge['dateSent'].'</small>';
+                            // nomes indiquem que s'ha llegit el missatge en el cas d'enviament
+                            $eye = $missatge['messageRead'] == '1' ? 'fas fa-eye' : 'fas fa-eye-slash';
+                            echo '<small class="pull-right text-muted"><span class="'.$eye.'"></span> <span class="glyphicon glyphicon-time"></span> '.$missatge['dateSent'].'</small>';                           
                           } else {
                             echo '<small class="text-muted"><span class="glyphicon glyphicon-time"></span> '.$missatge['dateSent'].'</small>';
                             echo '<strong class="pull-right">'.$friendData['nickname'].'</strong> ';

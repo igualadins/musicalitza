@@ -66,11 +66,11 @@ class Chats
 	public function getChatHistoryFromMessageId($userToId,$messageId)
 	{
 		$query = $this->dbConnection->prepare(" SELECT * FROM userchats
-																						WHERE userId = :userId AND userToId = :userToId AND id > :messageId
-																						UNION ALL
-																						SELECT * FROM userchats
-																						WHERE userId = :userToId AND userToId = :userId AND id > :messageId
-																						ORDER BY dateSent ASC");
+                                                        WHERE userId = :userId AND userToId = :userToId AND id > :messageId
+                                                        UNION ALL
+                                                        SELECT * FROM userchats
+                                                        WHERE userId = :userToId AND userToId = :userId AND id > :messageId
+                                                        ORDER BY dateSent ASC");
 		$query->bindParam(':userId', $this->userId, PDO::PARAM_INT);
 		$query->bindParam(':userToId', $userToId, PDO::PARAM_INT);
 		$query->bindParam(':messageId', $messageId, PDO::PARAM_INT);
@@ -104,7 +104,8 @@ class Chats
 
 	public function markAsRead($id)
 	{
-		return true;
+            $query = $this->dbConnection->prepare("UPDATE userchats SET messageRead=1 WHERE id = ?");
+            $query->execute(array($id));            		
 	}
 
 
