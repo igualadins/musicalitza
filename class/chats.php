@@ -107,7 +107,7 @@ class Chats
             $query = $this->dbConnection->prepare("UPDATE userchats SET messageRead=1 WHERE id = ?");
             $query->execute(array($id));            		
 	}
-
+        
 
 }
 

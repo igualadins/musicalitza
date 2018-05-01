@@ -25,7 +25,7 @@ if( strtolower( $_SERVER[ 'REQUEST_METHOD' ] ) == 'post') { // Si la petició no
 	try { // Control d'errors 
 
 		switch ($jsondata['action']) { // Segons el tipus d'acció farem una cosa o una altra
-
+      
                     // Si estem enviant un missatge
 		    case 'ENVIARMISSATGE':
 			$jsondata['message'] = filter_input (INPUT_POST, 'chat-message', FILTER_SANITIZE_STRING); // Agafem el parametre identificador de l'amic al que parlem

@@ -1,3 +1,4 @@
+var xatInterval;
 
 $(document).ready( function() {
 
@@ -6,7 +7,7 @@ $(document).ready( function() {
         var chatMessages = document.getElementById("chatMessages");
         chatMessages.scrollTop = chatMessages.scrollHeight; // Fem que l'scroll vagi a baix de tot nomès entrar, per si te converses antigues
 
-        var xatInterval = setInterval( updateChat, 5000); // Actualitzem el chat cada 5 segons
+        xatInterval = setInterval( updateChat, 5000); // Actualitzem el chat cada 5 segons
 
         $("#my-chat-form").submit(function(e){
             
@@ -44,7 +45,8 @@ function sendMessage() {
         success: function(data) {
             if (data.success == true){ // Si ha ido todo bien
                 $("#chat-message").val('');
-                updateChat();
+                stopTimer();                
+                starTimer();                
             } else { // Si han habido problemas
                 alert('Error al enviar el missatge');
             }
@@ -92,3 +94,11 @@ function updateChat() {
 
 }
 /* final actualitzar el xat */
+
+function stopTimer(){
+    clearInterval(xatInterval);
+}
+
+function starTimer(){
+    xatInterval = setInterval( updateChat, 5000);
+}
