@@ -1,10 +1,13 @@
 <?php
 
 require 'header.php';
+// incloem la classe friends
+include('class/friends.php');
 ?>
 
-<?php if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari ?>
-
+<?php if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari 
+    $friendsObj = new Friends($dbConnection, $_SESSION['id']);
+    ?>
       <?php if(isset($_GET['newuser'])) { ?>
         <div class="alert alert-success alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -61,6 +64,37 @@ require 'header.php';
                   </div>
                 </div>
               </div>
+                
+              <div class="userPanelSectionBox text-center">
+                  <div id="les-meves-suggerencies-list">
+
+                                <h2>Suggeriment d'usuaris per afinitat</h2>                   
+                                <ul class="list-group" id="group_suggest">                        
+                                    <?php
+                                    $userSuggestFriends = $friendsObj->suggestFriends();
+                                    foreach ($userSuggestFriends as $suggest) {
+                                        ?>
+                                        <li class="list-group-item" id="suggest<?php echo "{$suggest['suggestUser']}"; ?>">
+                                            <div class="col-xs-12 col-sm-3">
+                                                <img src="<?php echo "{$suggest['imagen']}"; ?>" height="50" width="50" class="img-responsive img-circle"> 
+                                            </div> 
+                                            <div class="col-xs-12 col-sm-3">
+                                                <span><?php echo "{$suggest['nom']} {$suggest['afinitat']}" . '%'; ?></span>                                                                                                
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="pull-right action-buttons">                                                 
+                                                <button class="btn btn-sm btn-info btn-send" type="button" onclick="enviarAmistat('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$suggest['suggestUser']}"; ?>')">
+                                                    <i class="glyphicon glyphicon-send"> Enviar Amistat</i>
+                                                </button>                                                
+                                                </div>
+                                            </div>                                    
+                                            <div class="clearfix"></div
+                                        </li>                                                                                  
+                                    <?php } ?>                           
+                                </ul>                    
+                    </div>
+              </div>
+                
             </div>
         </div>
 

@@ -182,10 +182,15 @@ class Friends
 	public function sendRequestToFriend($friendId)
 	{
 		if(!$this->checkFriendShip($friendId)) { // Si no hi ha ja una rel.lació previa, fem el procès
-			$query = $this->dbConnection->prepare("INSERT INTO userfriends (id, userId, friendId, accepted, blocked) VALUES ('', :userId, :friendId, 0, 0)");
+		  $query = $this->dbConnection->prepare("INSERT INTO userfriends (id, userId, friendId, accepted, blocked) VALUES ('', :userId, :friendId, 0, 0)");
 		  $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);   
 		  $query->bindValue(':friendId', $friendId, PDO::PARAM_INT);   
 		  $query->execute();
+                  if($query->errorCode() == 0) { // Si no hi ha cap problema, retornem l'identificador de la rel.lació                                        
+                    return 1;
+		} else {                    
+                    return -1; 
+		}
 		}
 	}
 
@@ -265,36 +270,28 @@ class Friends
 	*
 	* @return array amb totes les dades dels usuaris suggerits
 	*/
-
 	public function suggestFriends()
 	{
-		return array();
-	}
-
-
-	/**
-	* Funció que retorna suggeriments d'amics (que no ho siguin ja) a partir d'un album
-	*
-	* @param int $albumId identificador d'un album sobre el que cercar afinitats
-	* @return array amb totes les dades dels usuaris suggerits
-	*/
-
-	public function suggestFriendsByAlbumId($albumId)
-	{
-		return array();
-	}
-
-
-	/**
-	* Funció que retorna suggeriments d'amics (que no ho siguin ja) a partir d'un artista
-	*
-	* @param int $artistd identificador d'un artista sobre el que cercar afinitats
-	* @return array amb totes les dades dels usuaris suggerits
-	*/
-
-	public function suggestFriendsByArtistId($artistId)
-	{
-		return array();
+            $consulta = "SELECT usuaris.userId as suggestUser, " 
+                            . "ROUND(COUNT(usuaris.userId)*100/((SELECT COUNT(albumId) FROM useralbums WHERE userId= :userId) + (SELECT COUNT(artistId) FROM userartists WHERE userId= :userId)),2) as afinitat, "                              
+                            . "u.id as id, u.nickname as nom, u.image as imagen FROM " 
+                            . "(SELECT userId FROM useralbums WHERE albumId IN (SELECT albumId FROM useralbums WHERE userId= :userId) AND userId<> :userId "
+                            . "UNION ALL "
+                            . "SELECT userId FROM userartists WHERE artistId IN (SELECT artistId FROM userartists WHERE userId= :userId) AND userId<> :userId) "
+                            . " usuaris "
+                            . "LEFT JOIN users u on (usuaris.userId=u.id) "
+                            . "LEFT JOIN userfriends uf1 on (usuaris.userId=uf1.userId) "
+                            . "LEFT JOIN userfriends uf2 on (usuaris.userId=uf2.friendId) "
+                            . "WHERE uf1.userId is null and uf2.friendId is null "
+                            . "GROUP BY usuaris.userId "
+                            . "ORDER BY afinitat DESC "
+                            . "LIMIT 10";
+            $query = $this->dbConnection->prepare($consulta);         
+            $query->bindParam(':userId',  $this->userId, PDO::PARAM_INT);
+            $query->execute();
+            $dataSet = $query->fetchAll(PDO::FETCH_ASSOC); 
+            return $dataSet;
+            
 	}
 
 
