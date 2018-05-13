@@ -344,6 +344,25 @@ class Artists
 	}
 
 
+
+	/**
+	* Retorna el numero d'artistes favorits d'un usuari
+	*
+	* @param userId Int identificador de l'usuari
+	* @return array amb tots els artistes
+	*/
+
+	public function getFavoriteArtistsCount($userId) 
+	{
+		$query = $this->dbConnection->prepare(" SELECT count(a.id) AS 'favoritArtists'
+																						FROM artist a, userartists ua
+																						WHERE ua.userId = ? AND a.id = ua.artistId");
+		$query->execute(array($userId));
+		$return = $query->fetch(PDO::FETCH_ASSOC);
+		return $return['favoritArtists'];
+	}
+
+
 	/**
 	* Retorna els comentaris i valoracions d'un artista
 	*

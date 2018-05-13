@@ -39,10 +39,12 @@ if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari
                                                 <span class="name"><?php echo "{$friend['nom']}"; ?></span><br/>                                        
                                             </div>
                                             <div class="col-xs-12 col-sm-6">
-                                                <div class="pull-right action-buttons">                                                 
+                                                <div class="pull-right action-buttons">
+                                                <? if( $friend['canblock'] == 1 ) { // He afegit una marca perque nomès surti el botó de bloquejar si l'amistat l'has demanat aquest usuari ?>
                                                 <button class="btn btn-sm btn-danger btn-lock" type="button" onclick="bloquejarAcceptat('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$friend['friendId']}"; ?>', '<?php echo "{$friend['imagen']}"; ?>', '<?php echo "{$friend['nom']}"; ?>')">
                                                     <i class="glyphicon glyphicon-lock"></i>
                                                 </button>
+                                                <? } ?>
                                                 <button class="btn btn-sm btn-info btn-envelope" type="button" onclick="window.location.href = 'my-chat.php?friendId=<?php echo "{$friend['friendId']}"; ?>'">
                                                     <i class="glyphicon glyphicon-envelope"></i>
                                                 </button>

@@ -304,6 +304,23 @@ class Albums {
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    /**
+     * Retorna el numero d'albums favorits d'un usuari
+     *
+     * @param userId Int identificador de l'usuari
+     * @return array amb tots els albums
+     */
+    public function getFavoriteAlbumsCount($userId) {
+        $query = $this->dbConnection->prepare(" SELECT count(a.id) as 'favoriteAlbums'
+                                                FROM album a, useralbums ua
+                                                WHERE ua.userId = ? AND a.id = ua.albumId");
+        $query->execute(array($userId));
+        $return = $query->fetch(PDO::FETCH_ASSOC);
+        return $return['favoriteAlbums'];
+    }
+
+
     /**
      * Retorna els comentaris i valoracions d'un album
      *

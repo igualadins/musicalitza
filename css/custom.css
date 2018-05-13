@@ -744,6 +744,7 @@ ul.userPanelSections li .label {
 .artistSearchName, .albumSearchName {
     display: block;
     margin: 5px 0px;
+    min-height: 45px;
 }
 
 .artistSearchLikes, .albumSearchLikes {

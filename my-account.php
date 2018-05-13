@@ -6,7 +6,7 @@ include('class/friends.php');
 ?>
 
 <?php if ($userLoggedIn) { // Si l'usuari ha fet login mostrem el panell d'usuari 
-    $friendsObj = new Friends($dbConnection, $_SESSION['id']);
+    $userFriendsObj = new Friends($dbConnection, $_SESSION['id']);
     ?>
       <?php if(isset($_GET['newuser'])) { ?>
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -38,28 +38,47 @@ include('class/friends.php');
                 <div class="profileEmail"><?php echo $userData['email']; ?></div>
                 <div class="profileBio"><?php echo $userData['bio']; ?></div>
                 <div class="row">
+
+                  <? 
+
+                    // Incloem els objectes necessaris per mostrar el recompte estadístic
+                    // La classe friends ja te com a propietats els recomptes d'amistat en cada estat
+                    // La classe artists i albums te un mètode per obtenir el numero de favorits de l'usuari
+
+                    $userFriendsObj = new Friends($dbConnection,$_SESSION['id']); // Instanciem l'objecte de les amistats
+
+                    // incloem la classe artistes
+                    include('class/artists.php');
+                    $artistsObj = new Artists($dbConnection,$_SESSION['id']); // Instanciem l'objecte d'artistes
+
+                    // incloem la classe albums
+                    include('class/albums.php');
+                    $albumsObj = new Albums($dbConnection,$_SESSION['id']); // Instanciem l'objecte d'albums
+
+                  ?>
+
                   <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">12</div>
+                    <div class="favoriteItemsNumber"><? echo $artistsObj->getFavoriteArtistsCount($_SESSION['id']); ?></div>
                     <div class="favoriteItemsName">Artistes favorits</div>
                   </div>
                   <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">21</div>
+                    <div class="favoriteItemsNumber"><? echo $albumsObj->getFavoriteAlbumsCount($_SESSION['id']); ?></div>
                     <div class="favoriteItemsName">Álbums favorits</div>
                   </div>
                   <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">46</div>
+                    <div class="favoriteItemsNumber"><? echo $userFriendsObj->acceptedFriends; ?></div>
                     <div class="favoriteItemsName">Amics</div>
                   </div>
                   <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">2</div>
-                    <div class="favoriteItemsName">Sol.licituds</div>
+                    <div class="favoriteItemsNumber"><? echo $userFriendsObj->pendingRequests; ?></div>
+                    <div class="favoriteItemsName">Sol.licituds enviades</div>
                   </div>
                   <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">1</div>
-                    <div class="favoriteItemsName">Xats pendents</div>
+                    <div class="favoriteItemsNumber"><? echo $userFriendsObj->pendingFriends; ?></div>
+                    <div class="favoriteItemsName">Sol.licituds rebudes</div>
                   </div>
                   <div class="col-md-2 col-xs-4">
-                    <div class="favoriteItemsNumber">0</div>
+                    <div class="favoriteItemsNumber"><? echo $userFriendsObj->blockedFriends; ?></div>
                     <div class="favoriteItemsName">Bloquejats</div>
                   </div>
                 </div>
@@ -71,7 +90,7 @@ include('class/friends.php');
                                 <h2>Suggeriment d'usuaris per afinitat</h2>                   
                                 <ul class="list-group" id="group_suggest">                        
                                     <?php
-                                    $userSuggestFriends = $friendsObj->suggestFriends();
+                                    $userSuggestFriends = $userFriendsObj->suggestFriends();
                                     foreach ($userSuggestFriends as $suggest) {
                                         ?>
                                         <li class="list-group-item" id="suggest<?php echo "{$suggest['suggestUser']}"; ?>">

@@ -209,9 +209,6 @@ function codiAcceptat(userId,friendId,imatge,nom){
                     "<div class=\"col-xs-12 col-sm-6\">" +
                         "<div class=\"pull-right action-buttons\">" +
                             "<div class=\"pull-right action-buttons\">" +
-                                "<button class=\"btn btn-sm btn-danger btn-lock\" type=\"button\" onclick=\"bloquejarAcceptat('"+userId+"','"+friendId+"','"+imatge+"','"+nom+"')\">" +
-                                    "<i class=\"glyphicon glyphicon-lock\"></i>" +
-                                "</button>" +
                                 "<button class=\"btn btn-sm btn-info btn-envelope\" type=\"button\" onclick=\"window.location.href='/musicalitza/my-chat.php?friendId="+friendId+"'\">" +
                                     "<i class=\"glyphicon glyphicon-envelope\"></i>" +
                                 "</button>" +

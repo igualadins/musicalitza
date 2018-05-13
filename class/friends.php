@@ -13,6 +13,7 @@ class Friends
 	private $userId;
 	public $acceptedFriends;
 	public $pendingFriends;
+	public $pendingRequests;
 	public $blockedFriends;
 
 	// Al iniciar seteja la connexió amb la base de dades, l'usuari que està gestionant i les estadistiques d'amistat (nombre d'usuaris en cada estat)
@@ -21,8 +22,8 @@ class Friends
 	{            
 		$this->dbConnection = $dbConnection;
 		$this->userId = $userId;
-                // PENDENT, he comentat linia pq donva error
-		//$this->updateFriendsCount();
+		// Actualitzem les estadistiques d'amics al construir l'objecte
+		$this->updateFriendsCount();
 	}
 
 
@@ -33,11 +34,11 @@ class Friends
 	*/
 	public function getUserAcceptedFriends()
 	{        
-            $consulta = "SELECT u.nickname as nom, u.image as imagen, u.id as friendId "
+            $consulta = "SELECT u.nickname as nom, u.image as imagen, u.id as friendId, 1 as canblock "
                     . "FROM userfriends us LEFT JOIN users u on (us.friendId=u.id) "
                     . "WHERE us.userId = :userId AND us.accepted = 1 AND us.blocked = 0"
                     . " UNION "
-                    . "SELECT u.nickname as nom, u.image as imagen, u.id as friendId "
+                    . "SELECT u.nickname as nom, u.image as imagen, u.id as friendId, 0 as canblock "
                     . "FROM userfriends us LEFT JOIN users u on (us.userId=u.id) "
                     . "WHERE us.friendId = :userId AND us.accepted = 1 AND us.blocked = 0";
             $query = $this->dbConnection->prepare($consulta);         
@@ -145,10 +146,44 @@ class Friends
 
 	public function updateFriendsCount()
 	{
-		$this->$acceptedFriends=1; 
-		$this->$pendingFriends=1;
-		$this->$blockedFriends=1;
-		return true;
+		// Recompte d'amics
+		$query = $this->dbConnection->prepare(" SELECT SUM(TMPTABLE.amics) AS acceptedFriends FROM
+																						( SELECT count(u.id) AS amics
+																							FROM userfriends us LEFT JOIN users u on (us.friendId=u.id)
+																							WHERE us.userId = :userId AND us.accepted = 1 AND us.blocked = 0
+																							UNION ALL
+																							SELECT count(u.id)
+																							FROM userfriends us LEFT JOIN users u on (us.userId=u.id)
+																							WHERE us.friendId = :userId AND us.accepted = 1 AND us.blocked = 0) AS TMPTABLE");
+    $query->bindParam(':userId',  $this->userId, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC); 
+		$this->acceptedFriends = $result['acceptedFriends'];
+
+		// Recompte de sol.licituds rebudes pendents
+    $query = $this->dbConnection->prepare(" SELECT count(u.id) as pendingFriends
+																						FROM userfriends us LEFT JOIN users u on (us.userId=u.id) 
+																						WHERE us.friendId = :userId AND us.accepted = 0 AND us.blocked = 0");
+    $query->bindParam(':userId',  $this->userId, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC); 
+    $this->pendingFriends = $result['pendingFriends'];
+
+		// Recompte de sol.licituds enviades pendents
+    $query = $this->dbConnection->prepare(" SELECT count(u.id) as pendingRequests
+																						FROM userfriends us LEFT JOIN users u on (us.friendId=u.id) 
+																						WHERE us.userId = :userId AND us.accepted = 0 AND us.blocked = 0");
+    $query->bindParam(':userId',  $this->userId, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC); 
+    $this->pendingRequests = $result['pendingRequests'];
+
+		// Recompte d'amics bloquejats
+    $query = $this->dbConnection->prepare("SELECT count(u.id) AS blockedFriends FROM userfriends us LEFT JOIN users u on (us.friendId=u.id) WHERE us.userId = :userId AND us.blocked = 1");         
+    $query->bindValue(':userId',  $this->userId, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+		$this->blockedFriends = $result['blockedFriends'];
 	}
 
 
