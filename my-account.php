@@ -85,33 +85,33 @@ include('class/friends.php');
               </div>
                 
               <div class="userPanelSectionBox text-center">
-                  <div id="les-meves-suggerencies-list">
-
-                                <h2>Suggeriment d'usuaris per afinitat</h2>                   
-                                <ul class="list-group" id="group_suggest">                        
-                                    <?php
-                                    $userSuggestFriends = $userFriendsObj->suggestFriends();
-                                    foreach ($userSuggestFriends as $suggest) {
-                                        ?>
-                                        <li class="list-group-item" id="suggest<?php echo "{$suggest['suggestUser']}"; ?>">
-                                            <div class="col-xs-12 col-sm-3">
-                                                <img src="<?php echo "{$suggest['imagen']}"; ?>" height="50" width="50" class="img-responsive img-circle"> 
-                                            </div> 
-                                            <div class="col-xs-12 col-sm-3">
-                                                <span><?php echo "{$suggest['nom']} {$suggest['afinitat']}" . '%'; ?></span>                                                                                                
-                                            </div>
-                                            <div class="col-xs-12 col-sm-6">
-                                                <div class="pull-right action-buttons">                                                 
-                                                <button class="btn btn-sm btn-info btn-send" type="button" onclick="enviarAmistat('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$suggest['suggestUser']}"; ?>')">
-                                                    <i class="glyphicon glyphicon-send"> Enviar Amistat</i>
-                                                </button>                                                
-                                                </div>
-                                            </div>                                    
-                                            <div class="clearfix"></div
-                                        </li>                                                                                  
-                                    <?php } ?>                           
-                                </ul>                    
-                    </div>
+                <div id="les-meves-suggerencies-list">
+                  <h2>Suggeriment d'usuaris per afinitat</h2>                   
+                  <ul class="list-group" id="group_suggest">                        
+                      <?php
+                      $userSuggestFriends = $userFriendsObj->suggestFriends();
+                      foreach ($userSuggestFriends as $suggest) {
+                          ?>
+                          <li class="list-group-item" id="suggest<?php echo "{$suggest['suggestUser']}"; ?>">
+                              <div class="col-xs-3 col-sm-2">
+                                  <img src="<?php echo "{$suggest['imagen']}"; ?>" height="50" width="50" class="img-responsive img-circle"> 
+                              </div> 
+                              <div class="col-xs-6 col-sm-6 text-left">
+                                  <span class="nom-amic-suggerit"><?php echo "{$suggest['nom']}"; ?></span>
+                                  <span class="percentatge-afinitat-suggerit">Percentatge d'afinitat: <?php echo "{$suggest['afinitat']}" . '%'; ?></span>
+                              </div>
+                              <div class="col-xs-3 col-sm-4 text-right">
+                                  <div class="action-buttons">                                                 
+                                    <button class="btn btn-info" type="button" onclick="enviarAmistat('<?php echo "{$_SESSION['id']}"; ?>', '<?php echo "{$suggest['suggestUser']}"; ?>')">
+                                        <i class="glyphicon glyphicon-send"></i> Sol.licitar amistat
+                                    </button>                                                
+                                  </div>
+                              </div>                                    
+                              <div class="clearfix"></div
+                          </li>                                                                                  
+                      <?php } ?>
+                  </ul>                    
+                </div>
               </div>
                 
             </div>

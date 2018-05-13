@@ -45,7 +45,7 @@ if ($albumId > 0) {
                   
                   <?php } ?>
                   
-                  <a class="btn btn-default btn-xs" href="my-albums.php"><i class="glyphicon glyphicon-chevron-left"></i> Tornar a favorits</a>
+                  <a class="btn btn-default btn-xs" href="front-albums.php"><i class="glyphicon glyphicon-chevron-left"></i> Tornar a albums</a>
 
                 </div>
                   
@@ -55,7 +55,9 @@ if ($albumId > 0) {
                   <?php 
                   $artist = $artistsObj->getArtistData($album['artistId']); // Busquem l'artista del disc  ?>
                   <h2><a href="artists-detail.php?artistId=<?php echo $artist['id']?>"><?php echo $artist['name']?></a></h2>
-                  
+
+                  <?php $valoracioMitja = $albumsObj->getAlbumAverageRating($album['id']); // Mirem la valoració mitja de l'album ?>
+
                   <p class="bottom20">
                     <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 0) { echo 'estrella-marcada'; } ?>"></i>
                     <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 1) { echo 'estrella-marcada'; } ?>"></i>

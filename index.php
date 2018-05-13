@@ -46,7 +46,7 @@ $albumsObj = new Albums($dbConnection);
 
                                 <div class="col-xs-6 dades">
                                     <p><a href="artists-detail.php?artistId=<?php echo $a['id'] ?>"><?php echo $a['name'] ?></a></p>
-                                    <?php $valoracioMitja = $artistsObj->getArtistAverageRating($a['id']); // Mirem la valoraci� mitja de l'artista ?>
+                                    <?php $valoracioMitja = $artistsObj->getArtistAverageRating($a['id']); // Mirem la valoració mitja de l'artista ?>
 
                                     <p>
                                         
@@ -63,7 +63,7 @@ $albumsObj = new Albums($dbConnection);
                         <?php } ?>  
                         
                     </div>                 
-                    <div class="panel-footer"><a href="#">Veuré més</a></div>
+                    <div class="panel-footer"><a href="#">Veure més</a></div>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@ $albumsObj = new Albums($dbConnection);
 
                                 <div class="col-xs-6 dades">
                                     <p><a href="albums-detail.php?albumId=<?php echo $a['id'] ?>"><?php echo $a['name'] ?></a></p>
-                                    <?php $valoracioMitja = $albumsObj->getAlbumAverageRating($a['id']); // Mirem la valoraci� mitja de l'artista ?>
+                                    <?php $valoracioMitja = $albumsObj->getAlbumAverageRating($a['id']); // Mirem la valoració mitja de l'artista ?>
 
                                     <p>
                                         
@@ -102,7 +102,7 @@ $albumsObj = new Albums($dbConnection);
                         <?php } ?>  
                         
                     </div>                 
-                    <div class="panel-footer"><a href="#">Veuré més</a></div>
+                    <div class="panel-footer"><a href="#">Veure més</a></div>
                 </div>
             </div>
 
@@ -171,7 +171,7 @@ $albumsObj = new Albums($dbConnection);
                             </div>
 
                             <div class="col-xs-6 dades">
-                                <p><a href="#">Roc�o Jurado</a></p>
+                                <p><a href="#">Rocío Jurado</a></p>
                                 <p><a href="#">Teatre Apolo</a></p>
                             </div>
                         </div>
@@ -187,7 +187,7 @@ $albumsObj = new Albums($dbConnection);
                             </div>
 
                             <div class="col-xs-6 dades">
-                                <p><a href="#">Joaqu�n Sabina</a></p>
+                                <p><a href="#">Joaquín Sabina</a></p>
                                 <p><a href="#">Palau Sant Jordi</a></p>
                             </div>
                         </div>
@@ -195,7 +195,7 @@ $albumsObj = new Albums($dbConnection);
                     </div>
 
                 </div>                 
-                <div class="panel-footer"><a href="#">Veuré més</a></div>
+                <div class="panel-footer"><a href="#">Veure més</a></div>
             </div>
         </div>
     </div>

@@ -1,10 +1,3 @@
-/*
-Custom Bootstrap Musicalitza Theme
-
-    Created on : 11-mar-2018, 23:25:01
-    Author     : Pau Rodellino
-*/
-
 body {
     overflow-x: hidden;
     background-color: #f2f2f2;
@@ -38,8 +31,6 @@ h2 {
     font-family: Oswald;
     font-size: 2em;
     color: #666;
-    /*    color: #62c8d0;
-        text-shadow: 1px 1px #000000;*/
     padding-bottom: 15px;
 }
 
@@ -144,8 +135,6 @@ a, .btn {
 
 /* HOME BANNER */
 .jumbotron {
-    /*height: 100vh;
-    width: 100%;*/
     background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1) ), url('../img/records.jpg') no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -346,10 +335,6 @@ button.btn.registrat a:hover {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;    
-
-    /*-webkit-filter: grayscale(1);  Old WebKit 
-      filter: grayscale(1);*/
-
     background-color: #3c8288;
     text-align: center;
     padding: 40px 0;
@@ -573,8 +558,6 @@ button.btn.registrat a:hover {
 }
 
 .footer-center img {
-    /* border-radius: 5px;
-    opacity: 0.9;*/
     width: 70%;
     display: block;
     margin: auto;
@@ -774,6 +757,14 @@ ul.userPanelSections li .label {
     margin-bottom: 20px;
 }
 
+.nom-amic-suggerit {
+    display: block;
+    font-weight: bold;
+}
+
+.percentatge-afinitat-suggerit {
+
+}
 
 /* artists, albums / user zone */
 
@@ -805,7 +796,7 @@ ul.userPanelSections li .label {
 .artistSearchName, .albumSearchName {
     display: block;
     margin: 5px 0px;
-    /*min-height: 45px;*/
+    min-height: 45px;
 }
 
 .artistSearchLikes, .albumSearchLikes {

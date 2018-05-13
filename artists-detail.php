@@ -48,7 +48,7 @@ if ($artistId > 0) {
                   
                 <?php } ?>
 
-                  <a class="btn btn-default btn-xs" href="my-artists.php"><i class="glyphicon glyphicon-chevron-left"></i> Tornar a favorits</a>
+                  <a class="btn btn-default btn-xs" href="front-artists.php"><i class="glyphicon glyphicon-chevron-left"></i> Tornar a artistes</a>
 
                   <hr />
 
@@ -73,7 +73,7 @@ if ($artistId > 0) {
                   <?php 
                     if(count($artistAlbums)) echo '<p class="text-center"><b>Àlbums</b></p>';
                     foreach ($artistAlbums as $album) {
-                      echo '<div class="favoritAlbumElement col-sm-12" id="favoritAlbumElement'.$album['id'].'"><div class="albumElement"><img src="'.$album['image'].'" class="img-responsive albumSearchImage" /><span class="albumSearchName">'.$album['name'].'</span><span class="albumSearchLikes"><i class="glyphicon glyphicon-heart-empty"></i> '.$album['likes'].' seguidors</span><a class="btn btn-primary btn-xs" href="my-albums-detail.php?albumId='.$album['id'].'"><i class="glyphicon glyphicon-eye-open"></i> Veure fitxa</a></div></div>';
+                      echo '<div class="favoritAlbumElement col-sm-12" id="favoritAlbumElement'.$album['id'].'"><div class="albumElement"><img src="'.$album['image'].'" class="img-responsive albumSearchImage" /><span class="albumSearchName">'.$album['name'].'</span><span class="albumSearchLikes"><i class="glyphicon glyphicon-heart-empty"></i> '.$album['likes'].' seguidors</span><a class="btn btn-primary btn-xs" href="albums-detail.php?albumId='.$album['id'].'"><i class="glyphicon glyphicon-eye-open"></i> Veure fitxa</a></div></div>';
                     }
                   ?>
 

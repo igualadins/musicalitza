@@ -20,8 +20,8 @@ class Albums {
 
     /**
      * Retorna tots els albums segons el mode especificat
-     * @param type $mode
-     * @return type
+     * @param type $mode definex el mode de cerca ('az', 'za', 'mesval', 'menysval', 'messeg', 'menysseg')
+     * @return type array amb la info dels albums
      */
     public function getAlbums($mode) {
 
@@ -97,7 +97,7 @@ class Albums {
     }
 
     /**
-     * Llegeix els 4 albums amb millor val.loraci� mitja
+     * Llegeix els 4 albums amb millor val.loració mitja
      *
      * @return array amb totes les dades dels albums
      */
@@ -138,8 +138,8 @@ class Albums {
      */
     public function searchAlbumsByNameInAPI($name) {
 
-// Construim els paràmetres de url per fer la crida a l'API de LastFM
-// Amb la api_key que hem generat i el mètode album.search
+        // Construim els paràmetres de url per fer la crida a l'API de LastFM
+        // Amb la api_key que hem generat i el mètode album.search
         $queryParams = http_build_query([
             'method' => 'album.search',
             'album' => $name,
@@ -234,8 +234,8 @@ class Albums {
      */
     public function getAlbumDataByMBIDFromAPI($mbId) {
 
-// Construim els paràmetres de url per fer la crida a l'API de LastFM
-// Amb la api_key que hem generat i el mètode album.search
+        // Construim els paràmetres de url per fer la crida a l'API de LastFM
+        // Amb la api_key que hem generat i el mètode album.search
         $queryParams = http_build_query([
             'method' => 'album.getinfo',
             'mbid' => $mbId,
@@ -318,21 +318,6 @@ class Albums {
         } else {
             return 0; // Si hi ha algun error en el procès retornem 0
         }
-    }
-
-    /**
-     * Actualitza un album
-     *
-     * @param $albumId Int Identificador privat de l'album
-     * @param $mbId String Identificador public (de l'API de LastFM) de l'album
-     * @param $artistId Int Identificador de l'artista
-     * @param $name String Nom de l'album
-     * @param $releaseDate Date Data de llançament
-     * @param $image String ruta de l'imatge de portada
-     * @param $trackInfo String Llistat de cançons
-     */
-    public function updateAlbum($albumId, $mbId, $artistId, $name, $releaseDate, $image, $trackInfo) {
-        return true;
     }
 
     /**

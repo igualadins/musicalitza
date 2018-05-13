@@ -21,8 +21,8 @@ class Artists
 
     /**
      * Retorna tots els artistes segons el mode especificat
-     * @param type $mode
-     * @return type
+     * @param type $mode definex el mode de cerca ('az', 'za', 'mesval', 'menysval', 'messeg', 'menysseg')
+     * @return type array amb la info dels artistes
      */
     public function getArtists($mode) {
 
@@ -98,7 +98,7 @@ class Artists
     }
 
     /**
-     * Llegeix els 4 artistes amb millor val.loració mitja
+     * Llegeix els 4 artistes amb millor val.loraciÃ³ mitja
      *
      * @return array amb totes les dades dels artistes
      */
@@ -344,20 +344,6 @@ class Artists
 		}
 
 	}
-
-
-	/**
-	* Actualitza un artista desde l'API de LastFM a partir del seu mbId
-	*
-  * @param $artistId Int Identificador privat de l'artista
-  * @param $mbId String Identificador public (de l'API de LastFM) de l'artista
-	*/
-
-	public function updateArtist($artistId,$mbId)//FALTA
-	{
-		return true;
-	}
-
 
 	/**
 	* Posa l'artista com a favorit d'un usuari
