@@ -19,28 +19,100 @@ class Artists
 	}
 
 
-	/**
-	* Llegeix els 10 artistes amb mes favorits
-	*
-	* @return array amb totes les dades dels artistes
-	*/
+    /**
+     * Retorna tots els artistes segons el mode especificat
+     * @param type $mode
+     * @return type
+     */
+    public function getArtists($mode) {
 
-	public function getTop10FavoritArtists() //FALTA
-	{
-		return array();
-	}
+        switch ($mode) {
+            case 'az':
+                $query = $this->dbConnection->prepare('
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    GROUP BY a.id
+                    ORDER BY a.name ASC');
+                break;
 
+            case 'za':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    GROUP BY a.id
+                    ORDER BY a.name DESC');
+                break;
 
-	/**
-	* Llegeix els 10 artistes amb millor val.loraciÃ³ mitja
-	*
-	* @return array amb totes les dades dels artistes
-	*/
+            case 'mesval':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes, sum(uar.rating) as ratings FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    LEFT JOIN userartistratings uar on uar.userArtistId = ua.id
+                    GROUP BY a.id
+                    ORDER BY ratings DESC');
+                break;
 
-	public function getTop10RatedArtists() //FALTA
-	{
-		return array();
-	}
+            case 'menysval':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes, sum(uar.rating) as ratings FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    LEFT JOIN userartistratings uar on uar.userArtistId = ua.id
+                    GROUP BY a.id
+                    ORDER BY ratings ASC');
+                break;
+
+            case 'messeg':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    GROUP BY a.id
+                    ORDER BY likes DESC');
+                break;
+
+            case 'menysseg':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    GROUP BY a.id
+                    ORDER BY likes ASC');
+                break;
+        }
+        $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Llegeix els 4 artistes amb mes favorits
+     *
+     * @return array amb totes les dades dels artistes
+     */
+    public function getTop5FavoritArtists() {
+        $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    GROUP BY a.id
+                    ORDER BY likes DESC
+                    LIMIT 4');
+        $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Llegeix els 4 artistes amb millor val.loració mitja
+     *
+     * @return array amb totes les dades dels artistes
+     */
+    public function getTop5RatedArtists() {
+        $query = $this->dbConnection->prepare('
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes, sum(uar.rating) as ratings FROM artist a
+                    LEFT JOIN userartists ua ON ua.artistId = a.id
+                    LEFT JOIN userartistratings uar on uar.userArtistId = ua.id
+                    GROUP BY a.id
+                    ORDER BY ratings DESC
+                    LIMIT 4');
+        $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
 	/**

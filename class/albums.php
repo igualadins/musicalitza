@@ -19,21 +19,98 @@ class Albums {
     }
 
     /**
-     * Llegeix els 10 albums amb mes favorits
-     *
-     * @return array amb totes les dades dels albums
+     * Retorna tots els albums segons el mode especificat
+     * @param type $mode
+     * @return type
      */
-    public function getTop10FavoritAlbums() {
-        return array();
+    public function getAlbums($mode) {
+
+        switch ($mode) {
+            case 'az':
+                $query = $this->dbConnection->prepare('
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM album a
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id
+                    GROUP BY a.id
+                    ORDER BY a.name ASC');
+                break;
+
+            case 'za':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM album a
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id
+                    GROUP BY a.id
+                    ORDER BY a.name DESC');
+                break;
+
+            case 'mesval':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes, sum(uar.rating) as ratings FROM album a
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id
+                    LEFT JOIN useralbumratings uar on uar.userAlbumId = ua.id
+                    GROUP BY a.id
+                    ORDER BY ratings DESC');
+                break;
+
+            case 'menysval':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes, sum(uar.rating) as ratings FROM album a
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id
+                    LEFT JOIN useralbumratings uar on uar.userAlbumId = ua.id
+                    GROUP BY a.id
+                    ORDER BY ratings ASC');
+                break;
+
+            case 'messeg':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM album a
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id
+                    GROUP BY a.id
+                    ORDER BY likes DESC');
+                break;
+
+            case 'menysseg':
+                $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM album a
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id
+                    GROUP BY a.id
+                    ORDER BY likes ASC');
+                break;
+        }
+        $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
-     * Llegeix els 10 albums amb millor val.loraciÃ³ mitja
+     * Llegeix els 4 albums amb mes favorits
      *
      * @return array amb totes les dades dels albums
      */
-    public function getTop10RatedAlbums() {
-        return array();
+    public function getTop4FavoritAlbums($letter) {
+        $query = $this->dbConnection->prepare(' 
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes FROM album a
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id
+                    GROUP BY a.id
+                    ORDER BY likes DESC
+                    LIMIT 4');
+        $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Llegeix els 4 albums amb millor val.loració mitja
+     *
+     * @return array amb totes les dades dels albums
+     */
+    public function getTop4RatedAlbums() {
+        $query = $this->dbConnection->prepare('
+                    SELECT a.id, a.mbid, a.name, a.image, count(ua.id) as likes, sum(uar.rating) as ratings FROM album a 
+                    LEFT JOIN useralbums ua ON ua.albumId = a.id 
+                    LEFT JOIN useralbumratings uar on uar.userAlbumId = ua.id 
+                    GROUP BY a.id 
+                    ORDER BY ratings DESC 
+                    LIMIT 4');
+        $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

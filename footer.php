@@ -6,7 +6,7 @@
 
             <p class="footer-company-about">
                 <span>Sobre Nosaltres</span>
-                Musicalitza es un projecte realitzat per l'Institut Obert de Catalunya
+                Musicalitza es un projecte realitzat com a projecte final per l'Institut Obert de Catalunya
             </p>
 
             <div class="footer-icons">
@@ -23,7 +23,7 @@
 
         <div class="footer-center">
 
-            <a href="http://www.ioc.xtec.cat"><img src="img/logo.jpg" alt=""/></a>
+            <a href="http://www.ioc.xtec.cat"><img class="img-responsive" src="img/logo-petit.svg" alt="Institut Obert de Catalunya"></a>
 
         </div>
 
@@ -32,22 +32,22 @@
             <h3>Musicalitza</h3>
 
             <p class="footer-links">
-                <a href="#">Inici</a>
+                <a href="index.php">Inici</a>
                 ·
-                <a href="#">Artistes</a>
+                <a href="front-artists.php">Artistes</a>
                 ·
-                <a href="#">Albums</a>
+                <a href="front-albums.php">Albums</a>
                 ·
                 <a href="#">Nosaltres</a>
                 ·
                 <a href="#">Faq</a>
                 ·
-                <a href="#">Contacte</a>
+                <a href="contacte.php">Contacte</a>
             </p>
 
             <div class="legal">                     
-                <a href="#">Política de privacitat i cookies</a> · 
-                <a href="#">Avís legal</a>                        
+                <a href="politica-de-privacitat.php">Política de privacitat i cookies</a> · 
+                <a href="avis-legal.php">Avís legal</a>                       
             </div>
             <p class="footer-company-name">Musicalitza &copy; 2018</p>
 
@@ -66,5 +66,7 @@
 <script src="js/friends.js" type="text/javascript"></script>
 <script src="js/chat.js" type="text/javascript"></script>
 <script src="js/account.js" type="text/javascript"></script>
+<script src="js/front-artists.js" type="text/javascript"></script>
+<script src="js/front-albums.js" type="text/javascript"></script>
 </body>
 </html>

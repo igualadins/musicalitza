@@ -1,5 +1,11 @@
 <?php
 require 'header.php';
+
+// incloem la classe artist
+include('class/artists.php');
+include('class/albums.php');
+$artistsObj = new Artists($dbConnection);
+$albumsObj = new Albums($dbConnection);
 ?>
 
 <!-- BANNER INTRO -->
@@ -23,136 +29,78 @@ require 'header.php';
     <div class="container">    
         <div class="row">
 
-            <!-- √öltims afegits -->
+            <!-- Top Artistes -->
             <div class="col-sm-4 col-xs-12">
                 <div class="panel">
                     <div class="panel-heading">TOP ARTISTES</div>
                     <div class="panel-body">
-                        <!-- Num1 -->
-                        <div class="row disc">
-                            <div class="col-xs-6">
-                                <img src="http://via.placeholder.com/150x150" style="width:100%" class="img-responsive" alt="Image">
-                            </div>
+                        <?php
+                        $artist5 = $artistsObj->getTop5RatedArtists();
 
-                            <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Artista</a></p>
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </p>
-                            </div>
-                        </div>
+                        foreach ($artist5 as $a) { ?>
+                                              
+                            <div class="row disc">
+                                <div class="col-xs-6">
+                                    <img src="<?php echo $a['image'] ?>" style="width:100%" class="img-responsive" alt="Image">
+                                </div>
 
-                        <!-- Num2 -->
-                        <div class="row disc">
-                            <div class="col-xs-6">
-                                <img src="http://via.placeholder.com/150x150" style="width:100%" class="img-responsive" alt="Image">
-                            </div>
+                                <div class="col-xs-6 dades">
+                                    <p><a href="artists-detail.php?artistId=<?php echo $a['id'] ?>"><?php echo $a['name'] ?></a></p>
+                                    <?php $valoracioMitja = $artistsObj->getArtistAverageRating($a['id']); // Mirem la valoraciÛ mitja de l'artista ?>
 
-                            <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Album</a></p>
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </p>
-                            </div>
-                        </div>
+                                    <p>
+                                        
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 0) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 1) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 2) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 3) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 4) { echo 'estrella-marcada'; } ?>"></i>
 
-                        <!-- Num3 -->
-                        <div class="row disc">
-                            <div class="col-xs-6">
-                                <img src="http://via.placeholder.com/150x150" style="width:100%" class="img-responsive" alt="Image">
+                                    </p>
+                                </div>
                             </div>
-
-                            <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Album</a></p>
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </p>
-                            </div>
-                        </div>
-
+                        
+                        <?php } ?>  
+                        
                     </div>                 
                     <div class="panel-footer"><a href="#">Veur√© m√©s</a></div>
                 </div>
             </div>
 
 
-            <!-- Millor valorats -->
+            <!-- Top Albums -->
             <div class="col-sm-4 col-xs-12">
                 <div class="panel">
                     <div class="panel-heading">TOP ALBUMS</div>
                     <div class="panel-body">
-                        <!-- Num1 -->
-                        <div class="row disc">
-                            <div class="col-xs-6">
-                                <img src="http://via.placeholder.com/150x150" style="width:100%" class="img-responsive" alt="Image">
-                            </div>
+                                                <?php
+                        $album5 = $albumsObj->getTop4RatedAlbums();
 
-                            <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Album</a></p>
-                                <p><a href="#">Nom Artista</a></p>
-                                <p><a href="#">Estil</a></p>
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </p>
-                            </div>
-                        </div>
+                        foreach ($album5 as $a) { ?>
+                                              
+                            <div class="row disc">
+                                <div class="col-xs-6">
+                                    <img src="<?php echo $a['image'] ?>" style="width:100%" class="img-responsive" alt="Image">
+                                </div>
 
-                        <!-- Num2 -->
-                        <div class="row disc">
-                            <div class="col-xs-6">
-                                <img src="http://via.placeholder.com/150x150" style="width:100%" class="img-responsive" alt="Image">
-                            </div>
+                                <div class="col-xs-6 dades">
+                                    <p><a href="albums-detail.php?albumId=<?php echo $a['id'] ?>"><?php echo $a['name'] ?></a></p>
+                                    <?php $valoracioMitja = $albumsObj->getAlbumAverageRating($a['id']); // Mirem la valoraciÛ mitja de l'artista ?>
 
-                            <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Album</a></p>
-                                <p><a href="#">Nom Artista</a></p>
-                                <p><a href="#">Estil</a></p>
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </p>
-                            </div>
-                        </div>
+                                    <p>
+                                        
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 0) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 1) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 2) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 3) { echo 'estrella-marcada'; } ?>"></i>
+                                        <i class="glyphicon glyphicon-star estrellaInfo <?php if($valoracioMitja > 4) { echo 'estrella-marcada'; } ?>"></i>
 
-                        <!-- Num3 -->
-                        <div class="row disc">
-                            <div class="col-xs-6">
-                                <img src="http://via.placeholder.com/150x150" style="width:100%" class="img-responsive" alt="Image">
+                                    </p>
+                                </div>
                             </div>
-
-                            <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Album</a></p>
-                                <p><a href="#">Nom Artista</a></p>
-                                <p><a href="#">Estil</a></p>
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </p>
-                            </div>
-                        </div>
-
+                        
+                        <?php } ?>  
+                        
                     </div>                 
                     <div class="panel-footer"><a href="#">Veur√© m√©s</a></div>
                 </div>
@@ -163,20 +111,20 @@ require 'header.php';
             <div class="col-sm-4 col-xs-12">
                 <div class="panel">
                     <div class="panel-heading">PROPERS CONCERTS</div>
-                    <div class="panel-body">
+                   <div class="panel-body">
                         <!-- Num1 -->
                         <div class="row disc">
                             <div class="col-md-4 col-xs-6">
                                 <div class="data">
                                     <p>15</p>
                                     <p>MAR</p>
-                                    <p>19:00</p>
+                                    <p>21:00</p>
                                 </div>
                             </div>
 
                             <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Artista</a></p>
-                                <p><a href="#">Nom de la Sala</a></p>
+                                <p><a href="#">Suicidal Tendencies</a></p>
+                                <p><a href="#">Razzmatazz</a></p>
                             </div>
                         </div>
 
@@ -184,15 +132,15 @@ require 'header.php';
                         <div class="row disc">
                             <div class="col-md-4 col-xs-6">
                                 <div class="data">
-                                    <p>15</p>
+                                    <p>19</p>
                                     <p>MAR</p>
                                     <p>19:00</p>
                                 </div>
                             </div>
 
                             <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Artista</a></p>
-                                <p><a href="#">Nom de la Sala</a></p>
+                                <p><a href="#">Sobrinus</a></p>
+                                <p><a href="#">Bikini</a></p>
                             </div>
                         </div>
 
@@ -200,15 +148,15 @@ require 'header.php';
                         <div class="row disc">
                             <div class="col-md-4 col-xs-6">
                                 <div class="data">
-                                    <p>15</p>
+                                    <p>20</p>
                                     <p>MAR</p>
-                                    <p>19:00</p>
+                                    <p>22:00</p>
                                 </div>
                             </div>
 
                             <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Artista</a></p>
-                                <p><a href="#">Nom de la Sala</a></p>
+                                <p><a href="#">Serie Z</a></p>
+                                <p><a href="#">Casal Popular Nou Barris</a></p>
                             </div>
                         </div>
 
@@ -216,15 +164,31 @@ require 'header.php';
                         <div class="row disc">
                             <div class="col-md-4 col-xs-6">
                                 <div class="data">
-                                    <p>15</p>
+                                    <p>20</p>
+                                    <p>MAR</p>
+                                    <p>23:00</p>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 dades">
+                                <p><a href="#">RocÌo Jurado</a></p>
+                                <p><a href="#">Teatre Apolo</a></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Num5 -->
+                        <div class="row disc">
+                            <div class="col-md-4 col-xs-6">
+                                <div class="data">
+                                    <p>21</p>
                                     <p>MAR</p>
                                     <p>19:00</p>
                                 </div>
                             </div>
 
                             <div class="col-xs-6 dades">
-                                <p><a href="#">Nom Artista</a></p>
-                                <p><a href="#">Nom de la Sala</a></p>
+                                <p><a href="#">JoaquÌn Sabina</a></p>
+                                <p><a href="#">Palau Sant Jordi</a></p>
                             </div>
                         </div>
 

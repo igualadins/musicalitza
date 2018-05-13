@@ -53,9 +53,9 @@ $userLoggedIn = $user->checkUserSession();
                                     </button>
                                 </form>
                             </li>
-                            <li class="active"><a href="#">Artistes</a></li>
-                            <li><a href="#">Albums</a></li>
-                            <li><a href="#">Concerts</a></li>
+                            <li><a data-id="artists" href="front-artists.php">Artistes</a></li>
+                            <li><a data-id="albums" href="front-albums.php">Albums</a></li>
+                            <li><a data-id="concerts" href="front-concerts.php">Concerts</a></li>
                         </ul>                           
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="my-account.php"><span class="glyphicon glyphicon-user"></span> <?php if ($userLoggedIn) echo 'Hola ' . $_SESSION['nickname']; else echo 'El meu compte' ?></a></li>
