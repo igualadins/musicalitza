@@ -73,7 +73,7 @@ $albumsObj = new Albums($dbConnection);
                 <div class="panel">
                     <div class="panel-heading">TOP ALBUMS</div>
                     <div class="panel-body">
-                                                <?php
+                        <?php
                         $album5 = $albumsObj->getTop4RatedAlbums();
 
                         foreach ($album5 as $a) { ?>
